@@ -1,0 +1,2571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0F2B3C">
+  <title>Zero to Hero: AI App Builder — 75-Day Curriculum</title>
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --navy: #0F2B3C;
+      --teal: #01696F;
+      --teal-light: #e8f4f5;
+      --warm: #F7F6F2;
+      --white: #ffffff;
+      --border: #D4D1CA;
+      --text: #28251D;
+      --muted: #7A7974;
+      --sidebar-w: 270px;
+      --radius: 10px;
+      --shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--warm);
+      line-height: 1.65;
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 1.5rem; }
+    li { margin-bottom: .4rem; }
+
+    /* ── Layout ── */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--navy);
+      color: #cbd5e1;
+      padding: 1.5rem 0 2rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .sidebar-logo {
+      display: block;
+      padding: .75rem 1.25rem 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin-bottom: .75rem;
+      line-height: 1.3;
+    }
+    .sidebar nav a {
+      display: block;
+      padding: .45rem 1.25rem;
+      font-size: .875rem;
+      color: #94a3b8;
+      border-radius: 0 6px 6px 0;
+      margin-right: .5rem;
+      transition: background .15s, color .15s;
+    }
+    .sidebar nav a:hover {
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      text-decoration: none;
+    }
+    .nav-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #475569;
+      padding: .9rem 1.25rem .3rem;
+      margin-top: .5rem;
+    }
+
+    /* ── Mobile nav ── */
+    .mobile-nav {
+      display: none;
+      gap: .375rem;
+      padding: .6rem .75rem;
+      background: var(--navy);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .mobile-nav::-webkit-scrollbar { display: none; }
+    .mobile-nav a {
+      flex-shrink: 0;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .3rem .7rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,.1);
+      color: #e2e8f0;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .mobile-nav a:hover { background: rgba(255,255,255,.2); }
+
+    /* ── Main content ── */
+    .main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a5e 60%, #01696F 100%);
+      color: #fff;
+      padding: 4rem 2.5rem 3.5rem;
+    }
+    .hero-eyebrow {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #7dd3c7;
+      margin-bottom: .75rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: #5eead4; }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      max-width: 600px;
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .pill {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #e2e8f0;
+      padding: .35rem .9rem;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 500;
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: 3rem 2.5rem;
+      background: var(--white);
+    }
+    .section-alt {
+      background: var(--warm);
+    }
+    .section-header {
+      margin-bottom: 2rem;
+    }
+    .section-number {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--teal);
+      margin-bottom: .4rem;
+    }
+    .section-header h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: .5rem;
+    }
+    .section-header p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 700px;
+    }
+    .section-subheader {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 2rem 0 1rem;
+      padding-bottom: .4rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ── Phase header ── */
+    .phase-header {
+      margin-bottom: 1.5rem;
+    }
+    .phase-badge {
+      display: inline-block;
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      padding: .3rem .8rem;
+      border-radius: 20px;
+      margin-bottom: .6rem;
+    }
+    .phase-header h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: .3rem;
+    }
+    .phase-days {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .phase-overview {
+      margin: 1.5rem 0;
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 750px;
+      line-height: 1.7;
+    }
+
+    /* ── Objectives box ── */
+    .objectives-box {
+      border-left: 4px solid var(--teal);
+      background: var(--teal-light);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1.5rem 0;
+    }
+    .objectives-title {
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .75rem;
+      font-size: .95rem;
+    }
+    .objectives-box ul {
+      margin: 0;
+    }
+    .objectives-box li {
+      color: var(--text);
+      font-size: .93rem;
+    }
+
+    /* ── Real World Example card ── */
+    .rwe-card {
+      background: var(--navy);
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+    }
+    .rwe-title {
+      font-weight: 700;
+      font-size: .9rem;
+      color: #7dd3c7;
+      margin-bottom: .75rem;
+      font-style: italic;
+    }
+    .rwe-card p {
+      font-size: .93rem;
+      line-height: 1.7;
+      color: #cbd5e1;
+    }
+
+    /* ── Audio player ── */
+    .audio-player-bar {
+      background: var(--teal);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .audio-player-title {
+      font-weight: 700;
+      font-size: .9rem;
+      white-space: nowrap;
+    }
+    .audio-el {
+      flex: 1;
+      min-width: 200px;
+      height: 36px;
+      accent-color: #fff;
+    }
+    audio::-webkit-media-controls-panel {
+      background: rgba(255,255,255,.15);
+    }
+
+    /* ── Video grid ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .video-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .video-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.12);
+    }
+    .video-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .video-card-body {
+      padding: .75rem;
+    }
+    .video-card-channel {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: .25rem;
+    }
+    .video-card-title {
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: .6rem;
+      line-height: 1.35;
+    }
+    .video-card-btn {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff !important;
+      padding: .35rem .8rem;
+      border-radius: 6px;
+      font-size: .78rem;
+      font-weight: 600;
+      text-decoration: none !important;
+    }
+    .video-card-btn:hover {
+      background: #005558;
+    }
+
+    /* ── Beginner tip box ── */
+    .beginner-tip-box {
+      border-left: 4px solid #437A22;
+      background: #f0f9eb;
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1.5rem 0;
+    }
+    .beginner-tip-label {
+      font-weight: 700;
+      color: #2d5a16;
+      margin-bottom: .75rem;
+      font-size: .9rem;
+    }
+    .beginner-tip-box ul {
+      margin: 0;
+    }
+    .beginner-tip-box li {
+      font-size: .9rem;
+      color: #2d5a16;
+    }
+
+    /* ── Curriculum table ── */
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .curriculum-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .85rem;
+      background: var(--white);
+    }
+    .curriculum-table th {
+      background: var(--navy);
+      color: #fff;
+      padding: .65rem .9rem;
+      text-align: left;
+      font-size: .8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .curriculum-table td {
+      padding: .6rem .9rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .curriculum-table tr:last-child td { border-bottom: none; }
+    .curriculum-table tbody tr:nth-child(even),
+    .curriculum-table tr.row-alt {
+      background: #f9f8f6;
+    }
+    .curriculum-table a {
+      color: var(--teal);
+    }
+    .instruction-cell {
+      max-width: 280px;
+    }
+
+    /* ── Practice card ── */
+    .practice-card {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .practice-label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--teal);
+      margin-bottom: .4rem;
+    }
+    .practice-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .75rem;
+    }
+    .practice-card p {
+      font-size: .93rem;
+      color: var(--text);
+      margin-bottom: .75rem;
+    }
+    .practice-why {
+      font-size: .85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: .75rem;
+    }
+
+    /* ── Quiz ── */
+    .quiz-container {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+    }
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .75rem;
+    }
+    .quiz-label {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--navy);
+    }
+    .quiz-progress {
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .quiz-progress-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 2px;
+      transition: width .3s;
+    }
+    .quiz-question {
+      font-weight: 600;
+      font-size: .975rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      margin-bottom: 1rem;
+    }
+    .quiz-opt {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .65rem 1rem;
+      text-align: left;
+      font-size: .875rem;
+      cursor: pointer;
+      transition: background .12s, border-color .12s;
+      color: var(--text);
+    }
+    .quiz-opt:hover:not(:disabled) {
+      background: var(--teal-light);
+      border-color: var(--teal);
+    }
+    .quiz-opt.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+      font-weight: 600;
+    }
+    .quiz-opt.wrong {
+      background: #fee2e2;
+      border-color: #dc2626;
+      color: #7f1d1d;
+    }
+    .quiz-explanation {
+      background: #fffbeb;
+      border: 1px solid #fbbf24;
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      font-size: .875rem;
+      color: #92400e;
+      margin-bottom: .75rem;
+      line-height: 1.55;
+    }
+    .quiz-next-row { text-align: right; }
+    .quiz-next-btn {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: .6rem 1.25rem;
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .quiz-next-btn:hover { background: #005558; }
+    .quiz-result {
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    .quiz-score {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: .5rem;
+    }
+    .quiz-msg {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 1rem;
+    }
+    .quiz-result-btns {
+      display: flex;
+      gap: .75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .quiz-retake-btn {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: .55rem 1.2rem;
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .quiz-retake-btn:hover { background: #1a3f56; }
+    .quiz-review-btn {
+      background: var(--warm);
+      color: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .55rem 1.2rem;
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .quiz-review-btn:hover { background: var(--teal-light); }
+
+    /* ── After section ── */
+    .after-trophy {
+      font-size: 1.1rem !important;
+      color: #B5830A !important;
+    }
+    .after-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .after-col {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+    .after-col-title {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--navy);
+      margin-bottom: .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .after-list { margin: 0; }
+    .after-list li {
+      font-size: .9rem;
+      color: var(--text);
+    }
+    .next-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 1.5rem;
+    }
+    .next-step-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.1rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .next-step-title {
+      font-weight: 700;
+      font-size: .88rem;
+      color: var(--navy);
+      margin-bottom: .5rem;
+    }
+    .next-step-card p {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .closing-quote {
+      border: 2px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-top: 1.5rem;
+      background: var(--teal-light);
+    }
+    .closing-quote-inner {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    /* ── Subsection helpers (reused from v9) ── */
+    .subsection { margin-bottom: 2rem; }
+    .subsection h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+    .stat-card { background: var(--white); border-radius: var(--radius); padding: 1.25rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
+    .stat-source { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .4rem; }
+    .stat-number { font-size: 1.8rem; font-weight: 900; color: var(--teal); line-height: 1; margin-bottom: .3rem; }
+    .stat-label { font-size: .82rem; color: var(--text); }
+    .advantage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .advantage-card { background: var(--white); border-radius: var(--radius); padding: 1.25rem; border: 1px solid var(--border); }
+    .advantage-icon { font-size: 1.5rem; margin-bottom: .5rem; }
+    .advantage-title { font-weight: 700; color: var(--navy); margin-bottom: .4rem; font-size: .9rem; }
+    .advantage-text { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+    .elite-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .elite-card { background: var(--white); border-radius: var(--radius); padding: 1.25rem; border: 1px solid var(--border); border-top: 3px solid var(--navy); }
+    .elite-number { font-size: .7rem; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
+    .elite-title { font-weight: 700; color: var(--navy); margin-bottom: .5rem; font-size: .95rem; }
+    .elite-text { font-size: .85rem; color: var(--muted); line-height: 1.55; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .tool-card { background: var(--white); border-radius: var(--radius); padding: 1.1rem; border: 1px solid var(--border); }
+    .tool-name { font-weight: 700; color: var(--navy); margin-bottom: .25rem; font-size: .92rem; }
+    .tool-type { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--teal); margin-bottom: .4rem; }
+    .tool-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+    .tool-free { display: inline-block; background: #dcfce7; color: #14532d; font-size: .7rem; font-weight: 700; padding: .15rem .5rem; border-radius: 10px; margin-top: .4rem; }
+    .tool-paid { display: inline-block; background: #fef3c7; color: #92400e; font-size: .7rem; font-weight: 700; padding: .15rem .5rem; border-radius: 10px; margin-top: .4rem; }
+    .cost-table { width: 100%; border-collapse: collapse; }
+    .cost-table th { background: var(--navy); color: #fff; padding: .6rem .9rem; text-align: left; font-size: .8rem; }
+    .cost-table td { padding: .6rem .9rem; border-bottom: 1px solid var(--border); font-size: .87rem; }
+    .cost-table tbody tr:nth-child(even) { background: #f9f8f6; }
+    .cost-total { font-weight: 700; color: var(--teal); }
+    .rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+    .rule-card { background: var(--white); border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--border); border-left: 5px solid var(--teal); }
+    .rule-number { font-size: 2rem; font-weight: 900; color: var(--teal); opacity: .3; line-height: 1; margin-bottom: .5rem; }
+    .rule-title { font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+    .rule-text { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .mobile-nav { display: flex; position: sticky; top: 0; z-index: 100; }
+      .layout { display: block; }
+      .main { width: 100%; }
+      .hero { padding: 2rem 1rem 2rem; }
+      .section, .section-alt { padding: 2rem 1rem; }
+      .video-grid { grid-template-columns: 1fr 1fr; }
+      .after-grid { grid-template-columns: 1fr; }
+      .table-scroll table { min-width: 500px; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .next-steps-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .video-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .next-steps-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.75rem; }
+      .quiz-result-btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <span class="sidebar-logo">🤖 Zero to Hero<br>AI App Builder</span>
+    <nav>
+      <div class="nav-label">Start Here</div>
+      <a href="#hero">🏠 Home</a>
+      <a href="#why">💡 Why Start Now</a>
+      
+      <div class="nav-label">The 5 Phases</div>
+      <a href="#phase1">📗 Phase 1: Foundations</a>
+      <a href="#phase2">📘 Phase 2: Vibe Coding</a>
+      <a href="#phase3">📙 Phase 3: Full Stack</a>
+      <a href="#phase4">📕 Phase 4: Real App</a>
+      <a href="#phase5">🤖 Phase 5: AI Agents</a>
+      
+      <div class="nav-label">Finish Line</div>
+      <a href="#after">🏆 After This Course</a>
+      <a href="#elite">⚡ Elite Skills</a>
+      <a href="#tools">🛠 Tools &amp; Resources</a>
+      <a href="#cost">💰 Monthly Cost</a>
+      <a href="#rules">📋 The 3 Rules</a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <div class="main">
+    <!-- Mobile nav -->
+    <div class="mobile-nav">
+      <a href="#hero">Home</a>
+      <a href="#why">Why</a>
+      <a href="#phase1">P1</a>
+      <a href="#phase2">P2</a>
+      <a href="#phase3">P3</a>
+      <a href="#phase4">P4</a>
+      <a href="#phase5">P5</a>
+      <a href="#after">After</a>
+      <a href="#elite">Elite</a>
+      <a href="#tools">Tools</a>
+      <a href="#cost">Cost</a>
+      <a href="#rules">Rules</a>
+    </div>
+
+    <section id="hero" class="hero">
+  <div class="hero-eyebrow">75-Day Curriculum — Updated for 2026</div>
+  <h1>Zero to <span>Hero</span>:<br>AI App Builder</h1>
+  <div class="hero-subtitle">Build Real Apps and Simple Agents with AI. For complete beginners. No coding experience needed.</div>
+  <div class="hero-pills">
+    <span class="pill">📄 75 Days</span>
+    <span class="pill">🛠️ 5 Phases</span>
+    <span class="pill">🤖 AI Agents Included</span>
+    <span class="pill">🎓 Hand-Holding Included</span>
+    <span class="pill">💰 Real Revenue Potential</span>
+    <span class="pill">🎉 Built for Absolute Beginners</span>
+  </div>
+</section>
+
+    <section id="why" class="section section-alt">
+  <div class="section-header">
+    <div class="section-number">Read This First</div>
+    <h2>Why You're Not Behind &#128519;</h2>
+    <p>The honest truth about starting to code at 42 — and why it's actually an advantage.</p>
+  </div>
+
+  <div class="subsection">
+    <h3>&#127775; The Playing Field Has Changed</h3>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-source">GitHub Survey 2024</div>
+        <div class="stat-number">55%</div>
+        <div class="stat-label">of professional developers now use AI coding tools daily</div>
+        <div class="stat-positive">↑ AI levels the playing field for newcomers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-source">Indie Hackers 2025</div>
+        <div class="stat-number">$0 → $5K</div>
+        <div class="stat-label">Average time for first micro-SaaS to reach $5K MRR: 8 months</div>
+        <div class="stat-positive">↑ With AI tools, non-coders are building products</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-source">Pieter Levels</div>
+        <div class="stat-number">$3.2M</div>
+        <div class="stat-label">Annual revenue from apps built with minimal "traditional" code</div>
+        <div class="stat-positive">↑ One person, multiple revenue streams</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p>"The best time to start coding was 20 years ago. The second best time is today — with AI tools that didn't exist even 2 years ago. A 42-year-old with life experience and domain knowledge building AI apps has massive advantages over a 22-year-old fresh out of university."</p>
+      <div class="quote-source">— Core principle of this curriculum</div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3>&#128737;&#65039; Your Unfair Advantages</h3>
+    <div class="warning-box">
+      <div class="warning-label">&#128161; You Have Things 22-Year-Olds Don't</div>
+      <ul>
+        <li><strong>Real industry experience:</strong> You know what problems businesses actually have. This is where app ideas come from.</li>
+        <li><strong>Patience and work ethic:</strong> You've done hard things. Learning to code is hard — but you already know how to push through.</li>
+        <li><strong>A network:</strong> You know people. Your first customers will come from your existing relationships, not from cold outreach.</li>
+        <li><strong>Financial clarity:</strong> You know what a real business needs. You'll build things people pay for, not just cool experiments.</li>
+        <li><strong>AI tools:</strong> These tools barely existed 3 years ago. A 22-year-old in university in 2022 didn't have them. You're starting at the best possible time.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3>&#9888;&#65039; The Only Real Risk</h3>
+    <div class="warning-box">
+      <div class="warning-label">&#128308; Be Honest With Yourself About This</div>
+      <p>The only way this curriculum fails is if you treat it like a course to watch rather than a plan to execute. Every day has a specific deliverable. If you skip the deliverable and just watch videos, you will not succeed.</p>
+      <p><strong>The rule:</strong> No day is "done" until you've built the thing. Even if it's ugly. Even if it's broken. Ship it, then fix it.</p>
+    </div>
+  </div>
+</section>
+
+    <section id="phase1" class="section">
+  <div class="phase-header" style="border-left:5px solid #437A22; padding-left:1.25rem;">
+    <div class="phase-badge" style="background:#437A22;">📗 Phase 1</div>
+    <h2>Foundations</h2>
+    <div class="phase-days" style="color:#437A22;">Days 1–7</div>
+  </div>
+
+  <div class="phase-overview">
+    <p>This is where you start from zero. Every website is made of three things: HTML is the skeleton (what's on the page), CSS is the skin (how it looks), and JavaScript is the muscles (what it does). Understanding these basics — even at a surface level — means you'll never feel lost when AI builds code for you. You'll be able to read it, direct it, and fix it.</p>
+  </div>
+
+  <div class="objectives-box">
+    <div class="objectives-title">✅ By the end of this phase you can:</div>
+    <ul><li>By the end you can explain what HTML, CSS, and JavaScript each do — in plain English</li><li>By the end you can build a simple webpage from scratch using freeCodeCamp</li><li>By the end you can save your work using Git and back it up on GitHub</li><li>By the end you can use AI (ChatGPT or Claude) to explain any code you don't understand</li><li>By the end you can preview your first simple app using Base44 — built without writing a line of code yourself</li></ul>
+  </div>
+
+  <div class="rwe-card">
+    <div class="rwe-title">💼 What a small business owner actually uses Phase 1 skills for</div>
+    <p>Maria runs a cleaning company in Mission Viejo. After Phase 1, she understood why her website looked broken on phones (missing CSS). She asked Claude to explain it, fixed it in 10 minutes, and her booking inquiries doubled. She didn't need to become a developer — she just needed to understand enough to direct the fix.</p>
+  </div>
+
+  <div class="audio-player-bar">
+    <div class="audio-player-title">🎧 Listen to Phase 1 Introduction</div>
+    <audio id="phase1-audio" controls preload="none" class="audio-el">
+      Your browser does not support audio.
+    </audio>
+  </div>
+
+  <div class="section-subheader">📺 Video Resources</div>
+  <div class="video-grid">
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/UB1O30fR-EE/mqdefault.jpg" alt="HTML Crash Course" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Traversy Media</div>
+    <div class="video-card-title">HTML Crash Course</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=UB1O30fR-EE" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/yfoY53QXEnI/mqdefault.jpg" alt="CSS Crash Course" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Traversy Media</div>
+    <div class="video-card-title">CSS Crash Course</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=yfoY53QXEnI" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/hdI2bqOjy3c/mqdefault.jpg" alt="JavaScript Crash Course" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Traversy Media</div>
+    <div class="video-card-title">JavaScript Crash Course</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=hdI2bqOjy3c" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/RGOj5yH7evk/mqdefault.jpg" alt="Git &amp; GitHub for Beginners" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">freeCodeCamp</div>
+    <div class="video-card-title">Git &amp; GitHub for Beginners</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+</div>
+
+  <div class="beginner-tip-box">
+  <div class="beginner-tip-label">🟢 Beginner Tips for This Phase</div>
+  <ul><li>💡 Don't try to memorize code. Just understand what each language does — HTML = structure, CSS = style, JavaScript = behavior.</li><li>💡 It's completely normal to feel confused. Every single developer felt this way at the start. The confusion means you're learning.</li><li>💡 Use freeCodeCamp and don't skip the practice exercises. Typing the code yourself — even if you copy it — is 10x better than just reading it.</li></ul>
+</div>
+
+  <div class="section-subheader">📅 Day-by-Day Schedule</div>
+  <div class="table-scroll">
+    <table class="curriculum-table">
+        <thead><tr>
+          <th>Day</th>
+          <th>Topic</th>
+          <th>Free Resource</th>
+          <th>What To Build</th>
+          <th>&#128204; Today's Instructions</th>
+        </tr></thead>
+        <tbody><tr>
+  <td>1</td>
+  <td>How the Web Works</td>
+  <td><a href="https://www.khanacademy.org/computing/computers-and-the-internet" target="_blank" rel="noopener noreferrer">Khan Academy — How the Internet Works</a></td>
+  <td>Diagram: browser → server → database → back</td>
+  <td class="instruction-cell">Open Khan Academy (click the link). Watch the intro video. Then draw a simple diagram on paper showing: Browser → Server → Website. Keep it simple — just boxes and arrows.</td>
+</tr><tr>
+  <td>2</td>
+  <td>HTML Basics</td>
+  <td><a href="https://www.youtube.com/watch?v=UB1O30fR-EE" target="_blank" rel="noopener noreferrer">HTML Crash Course — Traversy Media</a></td>
+  <td>Simple webpage about your pet care business</td>
+  <td class="instruction-cell">Watch the HTML video first (click the link above). Then open freecodecamp.org and start the HTML section. Your goal: complete at least 10 small exercises. Don&#x27;t rush — slow and steady wins.</td>
+</tr><tr>
+  <td>3</td>
+  <td>CSS Basics</td>
+  <td><a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" target="_blank" rel="noopener noreferrer">freeCodeCamp Responsive Web Design</a></td>
+  <td>Styled, beautiful webpage</td>
+  <td class="instruction-cell">Go to the freeCodeCamp link. Start the Responsive Web Design module. Change colors, fonts, and spacing on your Day 2 webpage. It&#x27;s okay if it looks messy — you&#x27;re learning!</td>
+</tr><tr>
+  <td>4</td>
+  <td>JavaScript Part 1</td>
+  <td><a href="https://www.youtube.com/watch?v=hdI2bqOjy3c" target="_blank" rel="noopener noreferrer">JavaScript Crash Course — Traversy Media</a></td>
+  <td>JS variables, functions, events practice</td>
+  <td class="instruction-cell">Watch the JavaScript crash course (it&#x27;s 1.7 hours — take breaks!). In VS Code, create a new file called &#x27;practice.js&#x27; and type out the examples as you watch. Don&#x27;t just watch — type everything.</td>
+</tr><tr>
+  <td>5</td>
+  <td>JavaScript Part 2</td>
+  <td><a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" rel="noopener noreferrer">freeCodeCamp JavaScript Algorithms</a></td>
+  <td>Contact form with thank-you message</td>
+  <td class="instruction-cell">Continue with freeCodeCamp&#x27;s JavaScript section. Today&#x27;s project: add a contact form to your webpage that shows a &#x27;Thank you!&#x27; message when someone clicks Submit. Ask AI to help if you get stuck.</td>
+</tr><tr>
+  <td>6</td>
+  <td>Git + GitHub</td>
+  <td><a href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank" rel="noopener noreferrer">Git &amp; GitHub Crash Course — freeCodeCamp</a></td>
+  <td>GitHub account + first repo live</td>
+  <td class="instruction-cell">First: go to github.com and create a free account. Then watch the Git video. After watching, push your HTML/CSS files to a new GitHub repository. Don&#x27;t worry if it&#x27;s confusing — you&#x27;ll use it every day and it gets easy fast.</td>
+</tr><tr>
+  <td>7</td>
+  <td>First Vibe Coding Taste</td>
+  <td><a href="https://www.youtube.com/watch?v=FN9fyZ9IPWs" target="_blank" rel="noopener noreferrer">Base44 Tutorial for Beginners 2026</a></td>
+  <td>First app live on Base44</td>
+  <td class="instruction-cell">Watch the Base44 tutorial, then go to base44.com and sign up. Type in plain English what you want to build (example: &#x27;A simple to-do list app&#x27;). Watch the AI build it. Feel the magic!</td>
+</tr></tbody>
+      </table>
+  </div>
+
+  <div class="practice-card">
+    <div class="practice-label">🛠 Practice Task</div>
+    <div class="practice-title">Mini-Project: Your Digital Business Card</div>
+    <p>Build a simple one-page website for an imaginary business. It needs: a headline, a short description, contact info, and one button. Use HTML and CSS. Make it mobile-friendly. Deploy it free on GitHub Pages.</p>
+    <div class="practice-why"><strong>Why it matters:</strong> This is the foundation of every app you'll build. Every real product starts with a page like this.</div>
+  </div>
+
+  <div class="quiz-container" id="quiz-phase1">
+  <div class="quiz-header">
+    <span class="quiz-label">🧠 Knowledge Check</span>
+    <span class="quiz-progress" id="quiz-phase1-progress">Question 1 of 10</span>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-phase1-bar" style="width:0%"></div></div>
+  <div id="quiz-phase1-body">
+    <!-- rendered by JS -->
+  </div>
+  <script>
+  (function(){
+    var questions = [{"question": "What does HTML stand for?", "options": ["HyperText Markup Language", "High Tech Modern Language", "HyperText Machine Logic", "Home Tool Markup Language"], "correct_index": 0, "explanation": "HTML defines what's ON a webpage \u2014 headings, paragraphs, images, links. It's the skeleton."}, {"question": "What does CSS control?", "options": ["Data storage", "How a page looks (colors, fonts, layout)", "Server logic", "Database connections"], "correct_index": 1, "explanation": "CSS is the skin. It makes pages beautiful. Without CSS, everything is plain black text on white."}, {"question": "What does JavaScript do?", "options": ["Defines page structure", "Stores passwords", "Makes pages interactive \u2014 clicks, animations, live updates", "Connects to databases"], "correct_index": 2, "explanation": "JS is the muscles. When something reacts to a click or updates without refreshing \u2014 that's JavaScript."}, {"question": "What is Git?", "options": ["A website host", "A design tool", "A version control system that saves snapshots of your code", "A programming language"], "correct_index": 2, "explanation": "Git is your time machine. It saves every version of your code. If you break something, you can always go back."}, {"question": "What is GitHub?", "options": ["A social media app", "A cloud storage service for your code repositories", "A video tutorial site", "A code editor"], "correct_index": 1, "explanation": "GitHub stores your Git code online. It's like Google Drive for code. Free, essential, used by every developer."}, {"question": "What is VS Code?", "options": ["A video editing app", "A free code editor where you write and organize your code", "A database tool", "A design app"], "correct_index": 1, "explanation": "VS Code is where you write code. Free, fast, used by millions. Download at code.visualstudio.com."}, {"question": "What does 'responsive design' mean?", "options": ["The site responds to reviews", "The site loads fast", "The site looks good on any screen size", "The site has animations"], "correct_index": 2, "explanation": "Responsive means your app looks great on phone, tablet, and desktop. Most web traffic is mobile \u2014 this is essential."}, {"question": "What should you do when you're stuck on code?", "options": ["Give up", "Search Google for hours alone", "Ask Claude or ChatGPT to explain it simply", "Wait for the next lesson"], "correct_index": 2, "explanation": "AI is your 24/7 personal tutor. Describe the problem in plain English and ask for a simple explanation. This is the #1 habit of fast learners."}, {"question": "What is Base44?", "options": ["A math formula", "An AI app builder that creates apps from text descriptions", "A hosting platform", "A database"], "correct_index": 1, "explanation": "Base44 lets you describe an app in plain English and builds it for you. Perfect for your first real app before you understand all the code."}, {"question": "What is the goal of Day 7?", "options": ["Memorize all HTML tags", "Learn Python", "Preview your first AI-built app using plain English instructions", "Design a logo"], "correct_index": 2, "explanation": "Day 7 gives you a taste of vibe coding \u2014 describing apps and watching AI build them. This is what Phase 2 is all about."}];
+    var qid = "quiz-phase1";
+    var current = 0;
+    var score = 0;
+    var missed = [];
+    var answered = false;
+
+    function renderQ(idx) {
+      answered = false;
+      var q = questions[idx];
+      var total = questions.length;
+      document.getElementById(qid+'-progress').textContent = 'Question '+(idx+1)+' of '+total;
+      document.getElementById(qid+'-bar').style.width = (idx/total*100)+'%';
+      var html = '<div class="quiz-question">'+escH(q.question)+'</div>';
+      html += '<div class="quiz-options">';
+      for(var i=0;i<q.options.length;i++){
+        html += '<button class="quiz-opt" onclick="quizAnswer_'+qid+'(this,'+i+')" data-idx="'+i+'">'+escH(q.options[i])+'</button>';
+      }
+      html += '</div>';
+      html += '<div class="quiz-explanation" id="'+qid+'-exp" style="display:none"></div>';
+      html += '<div class="quiz-next-row" id="'+qid+'-next" style="display:none"><button class="quiz-next-btn" onclick="quizNext_'+qid+'()">Next Question →</button></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+    }
+
+    function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+    window['quizAnswer_'+qid] = function(btn, idx){
+      if(answered) return;
+      answered = true;
+      var q = questions[current];
+      var opts = document.querySelectorAll('#'+qid+' .quiz-opt');
+      opts.forEach(function(o){ o.disabled = true; });
+      if(idx === q.correct_index){
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        opts[q.correct_index].classList.add('correct');
+        missed.push(current);
+      }
+      var exp = document.getElementById(qid+'-exp');
+      exp.textContent = q.explanation;
+      exp.style.display = 'block';
+      var nextRow = document.getElementById(qid+'-next');
+      if(current < questions.length-1){
+        nextRow.style.display = 'block';
+      } else {
+        nextRow.innerHTML = '<button class="quiz-next-btn" onclick="quizFinish_'+qid+'()">See Results 🎉</button>';
+        nextRow.style.display = 'block';
+      }
+    };
+
+    window['quizNext_'+qid] = function(){
+      current++;
+      renderQ(current);
+    };
+
+    window['quizFinish_'+qid] = function(){
+      var total = questions.length;
+      var pct = Math.round(score/total*100);
+      var stars = pct>=90?'🌟🌟🌟':pct>=70?'⭐⭐':'⭐';
+      var html = '<div class="quiz-result">';
+      html += '<div class="quiz-score">'+stars+' '+score+'/'+total+' ('+pct+'%)</div>';
+      if(pct===100){html += '<div class="quiz-msg">Perfect score! You nailed it.</div>';}
+      else if(pct>=70){html += '<div class="quiz-msg">Good work! Review the ones you missed.</div>';}
+      else{html += '<div class="quiz-msg">Keep studying &#8212; you&#x27;ve got this!</div>';}
+      html += '<div class="quiz-result-btns">';
+      html += '<button class="quiz-retake-btn" onclick="quizRetake_'+qid+'()">↩ Retake Quiz</button>';
+      if(missed.length>0){html += '<button class="quiz-review-btn" onclick="quizReview_'+qid+'()">Review Missed ('+missed.length+')</button>';}
+      html += '</div></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+      document.getElementById(qid+'-progress').textContent = 'Complete!';
+      document.getElementById(qid+'-bar').style.width = '100%';
+    };
+
+    window['quizRetake_'+qid] = function(){
+      current = 0; score = 0; missed = [];
+      renderQ(0);
+    };
+
+    window['quizReview_'+qid] = function(){
+      current = missed[0];
+      missed = missed.slice(1);
+      score = 0;
+      renderQ(current);
+    };
+
+    renderQ(0);
+  })();
+  </script>
+</div>
+
+</section>
+<section id="phase2" class="section section-alt">
+  <div class="phase-header" style="border-left:5px solid #01696F; padding-left:1.25rem;">
+    <div class="phase-badge" style="background:#01696F;">📘 Phase 2</div>
+    <h2>Vibe Coding</h2>
+    <div class="phase-days" style="color:#01696F;">Days 8–21</div>
+  </div>
+
+  <div class="phase-overview">
+    <p>You've learned the alphabet. Now you start writing sentences — with AI doing most of the work. Vibe coding means describing what you want in plain English and using AI tools to build it. You are the director. AI is the crew. In Phase 2, you'll ship real apps that work on the internet.</p>
+  </div>
+
+  <div class="objectives-box">
+    <div class="objectives-title">✅ By the end of this phase you can:</div>
+    <ul><li>By the end you can build a working app using Base44 or Lovable with just a text description</li><li>By the end you can connect a real database (Supabase) so your app stores user data</li><li>By the end you can add real payment processing (Stripe) so your app can charge money</li><li>By the end you can use Cursor to edit and improve AI-generated code</li><li>By the end you can deploy a live app at a real URL that anyone can visit</li><li>By the end you can ship at least 3 complete mini-apps from scratch</li></ul>
+  </div>
+
+  <div class="rwe-card">
+    <div class="rwe-title">💼 How a non-technical founder launched a paid product in Phase 2</div>
+    <p>James had an idea for a subscription tool for real estate agents. No coding experience. Using Lovable + Supabase + Stripe, he built a working MVP in 4 days. He charged $49/month. His first paying customer signed up before he finished Phase 3. He never wrote a line of backend code himself — he described what he wanted and let AI build it.</p>
+  </div>
+
+  <div class="audio-player-bar">
+    <div class="audio-player-title">🎧 Listen to Phase 2 Introduction</div>
+    <audio id="phase2-audio" controls preload="none" class="audio-el">
+      Your browser does not support audio.
+    </audio>
+  </div>
+
+  <div class="section-subheader">📺 Video Resources</div>
+  <div class="video-grid">
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/C05XDMGaAn8/mqdefault.jpg" alt="Base44 Tutorial for Beginners" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">MikeyNoCode</div>
+    <div class="video-card-title">Base44 Tutorial for Beginners</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=C05XDMGaAn8" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/pdMT4Efanfg/mqdefault.jpg" alt="Lovable Full Stack App" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Traversy Media</div>
+    <div class="video-card-title">Lovable Full Stack App</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=pdMT4Efanfg" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/oQDCAJnr1aU/mqdefault.jpg" alt="Cursor AI Tutorial" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Fireship</div>
+    <div class="video-card-title">Cursor AI Tutorial</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/4eN9by7m2eA/mqdefault.jpg" alt="Stripe Payments Tutorial" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Traversy Media</div>
+    <div class="video-card-title">Stripe Payments Tutorial</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=4eN9by7m2eA" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+</div>
+
+  <div class="beginner-tip-box">
+  <div class="beginner-tip-label">🟢 Beginner Tips for This Phase</div>
+  <ul><li>💡 You don't need to understand every line of code the AI generates. Focus on: does it work? Does it do what I asked? If yes, move on.</li><li>💡 When an AI tool produces something unexpected, describe what's wrong clearly: 'The button is blue but it should be green' beats 'fix this'.</li><li>💡 Keep a running list of prompts that worked well. Your personal prompt library is a real productivity asset.</li></ul>
+</div>
+
+  <div class="section-subheader">📅 Day-by-Day Schedule</div>
+  <div class="table-scroll">
+    <table class="curriculum-table">
+        <thead><tr>
+          <th>Day</th>
+          <th>Topic</th>
+          <th>Free Resource</th>
+          <th>What To Build</th>
+          <th>&#128204; Today's Instructions</th>
+        </tr></thead>
+        <tbody><tr>
+  <td>8</td>
+  <td>Base44 App 1</td>
+  <td><a href="https://base44.com" target="_blank" rel="noopener noreferrer">Base44 — base44.com</a></td>
+  <td>Booking app for a cleaning business</td>
+  <td class="instruction-cell">Log into base44.com. Describe your first real app in plain English: &#x27;Build a booking system for a house cleaning business. Customers can pick a date and time, enter their address, and submit.&#x27; Watch it build the app.</td>
+</tr><tr>
+  <td>9</td>
+  <td>Base44 + Stripe</td>
+  <td><a href="https://www.youtube.com/watch?v=M_JBV-ly3wg" target="_blank" rel="noopener noreferrer">Base44 Step-by-Step Guide</a></td>
+  <td>Base44 app with payment link</td>
+  <td class="instruction-cell">In your Base44 app, ask it to &#x27;Add a Stripe payment button so customers can pay $50 for a booking.&#x27; Get a Stripe account at stripe.com (free). Test with card: 4242 4242 4242 4242, any future date, any CVV.</td>
+</tr><tr>
+  <td>10</td>
+  <td>Base44 Directory App</td>
+  <td><a href="https://base44.com" target="_blank" rel="noopener noreferrer">Base44 Dashboard + Tutorial</a></td>
+  <td>Local business directory app</td>
+  <td class="instruction-cell">Build a directory app in Base44. Prompt: &#x27;Create a directory of local Chinese restaurants in Melbourne. Users can browse listings, view details, and submit a new restaurant.&#x27; Share the link with 3 friends.</td>
+</tr><tr>
+  <td>11</td>
+  <td>Lovable Intro</td>
+  <td><a href="https://www.productcompass.pm/p/full-stack-app-with-lovable" target="_blank" rel="noopener noreferrer">Full-Stack App with Lovable — Product Compass</a></td>
+  <td>First Lovable app created</td>
+  <td class="instruction-cell">Sign up at lovable.dev (free plan). Read the Product Compass guide linked here. Then create your first Lovable app. Describe a simple SaaS idea you have. Let Lovable build the first version.</td>
+</tr><tr>
+  <td>12</td>
+  <td>Lovable + Supabase</td>
+  <td><a href="https://www.youtube.com/watch?v=pdMT4Efanfg" target="_blank" rel="noopener noreferrer">Lovable + Supabase Full Stack Tutorial</a></td>
+  <td>App with working user login</td>
+  <td class="instruction-cell">Watch the Lovable + Supabase tutorial. Then connect your Lovable app to Supabase (the video shows exactly how). Test that users can sign up and log in. This is the real deal — your app now has a real database!</td>
+</tr><tr>
+  <td>13</td>
+  <td>Lovable + Stripe</td>
+  <td><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable docs — lovable.dev</a></td>
+  <td>App that accepts test payments</td>
+  <td class="instruction-cell">In your Lovable app, go to the integrations panel and add Stripe. Create a simple pricing page with one plan ($9.99/month). Test it using Stripe&#x27;s test card: 4242 4242 4242 4242. Confirm the payment shows in your Stripe dashboard.</td>
+</tr><tr>
+  <td>14</td>
+  <td>Lovable Deploy</td>
+  <td><a href="https://docs.lovable.dev" target="_blank" rel="noopener noreferrer">Lovable deploy guide</a></td>
+  <td>App deployed with custom URL</td>
+  <td class="instruction-cell">Follow the Lovable deploy guide to publish your app. You&#x27;ll get a URL like yourapp.lovable.app. Share this URL with friends and family. Ask 2 people to try using it and tell you what&#x27;s confusing.</td>
+</tr><tr>
+  <td>15</td>
+  <td>Cursor Setup</td>
+  <td><a href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank" rel="noopener noreferrer">Cursor AI Tutorial for Beginners 2026</a></td>
+  <td>Cursor installed, first AI edit</td>
+  <td class="instruction-cell">Download Cursor from cursor.com (it&#x27;s free). Watch the tutorial. Open one of your existing projects in Cursor. Press Ctrl+K (or Cmd+K on Mac) and type: &#x27;Add a header with my app name and a navigation menu.&#x27; Watch the AI write the code.</td>
+</tr><tr>
+  <td>16</td>
+  <td>Cursor Basics</td>
+  <td><a href="https://www.youtube.com/watch?v=sUlFpmP5j0o" target="_blank" rel="noopener noreferrer">How to Build App with AI using Cursor</a></td>
+  <td>Small app built with Cursor</td>
+  <td class="instruction-cell">In Cursor, open a blank project folder. Press Ctrl+L to open AI chat. Describe what you want to build. Let Cursor write all the code. Your job: describe, review, test. Not to write every line yourself.</td>
+</tr><tr>
+  <td>17</td>
+  <td>Cursor + React</td>
+  <td><a href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank" rel="noopener noreferrer">Cursor AI Tutorial for Beginners</a></td>
+  <td>React app scaffolded in Cursor</td>
+  <td class="instruction-cell">In Cursor, type in chat: &#x27;Create a new React app for a pet sitting service. Include a homepage with a hero section, services list, and contact form.&#x27; Let it generate everything. Then run it and see your app!</td>
+</tr><tr>
+  <td>18</td>
+  <td>Cursor + OpenAI</td>
+  <td><a href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank" rel="noopener noreferrer">Cursor AI features tutorial</a></td>
+  <td>AI chat feature added to app</td>
+  <td class="instruction-cell">Ask Cursor to &#x27;Add an AI chat assistant to my app using the OpenAI API. The assistant answers questions about pet care.&#x27; Get a free OpenAI API key at platform.openai.com. Add it to your .env file.</td>
+</tr><tr>
+  <td>19</td>
+  <td>Cursor Project</td>
+  <td><a href="https://www.youtube.com/watch?v=sUlFpmP5j0o" target="_blank" rel="noopener noreferrer">Build App with Cursor — Full Series</a></td>
+  <td>Complete small app with Cursor</td>
+  <td class="instruction-cell">Build a complete mini-app from scratch using only Cursor AI. Choose something simple: a recipe organizer, a habit tracker, or a note-taking app. Describe everything in plain English. Don&#x27;t manually type any code.</td>
+</tr><tr>
+  <td>20</td>
+  <td>Add Stripe</td>
+  <td><a href="https://www.youtube.com/watch?v=unuomzBEHlE" target="_blank" rel="noopener noreferrer">Supabase + Stripe Tutorial</a></td>
+  <td>Stripe payments working in app</td>
+  <td class="instruction-cell">Watch the Supabase + Stripe tutorial. Then ask Cursor to &#x27;Add Stripe subscription payments to my app with a monthly plan for $19/month.&#x27; Follow the video steps. Test with 4242 4242 4242 4242.</td>
+</tr><tr>
+  <td>21</td>
+  <td>Polish + Deploy</td>
+  <td><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel — vercel.com</a></td>
+  <td>App deployed on Vercel</td>
+  <td class="instruction-cell">Go to vercel.com and connect your GitHub account. Import your project. Vercel will automatically build and deploy it. You&#x27;ll get a live URL like yourapp.vercel.app. MILESTONE: You&#x27;ve deployed a real app! Screenshot it and save it.</td>
+</tr></tbody>
+      </table>
+  </div>
+
+  <div class="practice-card">
+    <div class="practice-label">🛠 Practice Task</div>
+    <div class="practice-title">Mini-Project: Build and Launch Your First Paid App</div>
+    <p>Build a simple subscription app for a local business (your choice). It needs: user sign-up and login, one core feature (booking, directory, portfolio), a $19/month Stripe subscription, and a live URL. Show it to one real person. Write down what they say.</p>
+    <div class="practice-why"><strong>Why it matters:</strong> This is the most important project so far. Real feedback from a real person teaches you more than 10 tutorials.</div>
+  </div>
+
+  <div class="quiz-container" id="quiz-phase2">
+  <div class="quiz-header">
+    <span class="quiz-label">🧠 Knowledge Check</span>
+    <span class="quiz-progress" id="quiz-phase2-progress">Question 1 of 10</span>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-phase2-bar" style="width:0%"></div></div>
+  <div id="quiz-phase2-body">
+    <!-- rendered by JS -->
+  </div>
+  <script>
+  (function(){
+    var questions = [{"question": "What is 'vibe coding'?", "options": ["Writing code while relaxing", "Describing what you want in plain English and letting AI build it", "Copying code from tutorials", "Writing very fast"], "correct_index": 1, "explanation": "Vibe coding = you describe, AI builds. You are the director. You focus on what the app does, not how to code it."}, {"question": "What does Supabase do?", "options": ["Hosts videos", "Designs logos", "Stores your app's data and handles user login", "Processes payments"], "correct_index": 2, "explanation": "Supabase is your backend database. It stores user accounts, form submissions, bookings \u2014 anything your app needs to remember."}, {"question": "What is Stripe?", "options": ["A design tool", "A payment processor that handles credit cards and subscriptions", "A database", "A code editor"], "correct_index": 1, "explanation": "Stripe processes payments securely. When someone pays $29/month for your app, Stripe handles it and deposits to your bank. You never touch card data."}, {"question": "What is the Stripe test card number?", "options": ["1111 1111 1111 1111", "4242 4242 4242 4242", "0000 0000 0000 0000", "1234 5678 9012 3456"], "correct_index": 1, "explanation": "4242 4242 4242 4242 with any future date and any 3-digit CVV is Stripe's official test card. Use it to test payments without spending real money."}, {"question": "What is Cursor?", "options": ["A mouse cursor tool", "An AI-powered code editor where you describe changes and AI writes the code", "A database viewer", "A design tool"], "correct_index": 1, "explanation": "Cursor is VS Code with AI built in. Describe what you want in the chat panel. AI writes it. You review, test, and ship."}, {"question": "What does deploying an app mean?", "options": ["Deleting it", "Testing it on your computer", "Making it live on the internet at a real URL anyone can visit", "Backing it up"], "correct_index": 2, "explanation": "Deployment = making it real. Before deployment, only you can see it. After, anyone in the world can visit your URL and use your app."}, {"question": "What is Vercel?", "options": ["A database service", "A code editor", "A free platform for hosting and deploying web apps", "A payment processor"], "correct_index": 2, "explanation": "Vercel hosts your apps for free. Connect your GitHub repo and every time you push new code, Vercel automatically redeploys. Takes 30 seconds."}, {"question": "What should your Phase 2 goal be?", "options": ["Read 5 tutorials", "Memorize JavaScript syntax", "Ship at least 3 real deployed apps that work", "Get a coding certificate"], "correct_index": 2, "explanation": "Phase 2 is about BUILDING. The goal is 3 real apps on the internet. Not perfect apps. Real apps. Learning by shipping is 10x faster than learning by watching."}, {"question": "What makes Lovable different from Base44?", "options": ["It only builds games", "It connects to Supabase for real databases and Stripe for payments \u2014 making full production apps", "It is free forever", "It writes better code"], "correct_index": 1, "explanation": "Lovable integrates the full production stack \u2014 auth, database, payments \u2014 out of the box. The apps you build in Lovable can be real businesses."}, {"question": "What is the best way to give Cursor clear instructions?", "options": ["Use one word", "Give full context about what your app does before describing what you want changed", "Write in code", "Be as vague as possible"], "correct_index": 1, "explanation": "Context is everything. 'Change the button color to blue' is vague. 'In my cleaning booking app, change the Submit Booking button to teal (#01696F) to match the brand' gets perfect results."}];
+    var qid = "quiz-phase2";
+    var current = 0;
+    var score = 0;
+    var missed = [];
+    var answered = false;
+
+    function renderQ(idx) {
+      answered = false;
+      var q = questions[idx];
+      var total = questions.length;
+      document.getElementById(qid+'-progress').textContent = 'Question '+(idx+1)+' of '+total;
+      document.getElementById(qid+'-bar').style.width = (idx/total*100)+'%';
+      var html = '<div class="quiz-question">'+escH(q.question)+'</div>';
+      html += '<div class="quiz-options">';
+      for(var i=0;i<q.options.length;i++){
+        html += '<button class="quiz-opt" onclick="quizAnswer_'+qid+'(this,'+i+')" data-idx="'+i+'">'+escH(q.options[i])+'</button>';
+      }
+      html += '</div>';
+      html += '<div class="quiz-explanation" id="'+qid+'-exp" style="display:none"></div>';
+      html += '<div class="quiz-next-row" id="'+qid+'-next" style="display:none"><button class="quiz-next-btn" onclick="quizNext_'+qid+'()">Next Question →</button></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+    }
+
+    function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+    window['quizAnswer_'+qid] = function(btn, idx){
+      if(answered) return;
+      answered = true;
+      var q = questions[current];
+      var opts = document.querySelectorAll('#'+qid+' .quiz-opt');
+      opts.forEach(function(o){ o.disabled = true; });
+      if(idx === q.correct_index){
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        opts[q.correct_index].classList.add('correct');
+        missed.push(current);
+      }
+      var exp = document.getElementById(qid+'-exp');
+      exp.textContent = q.explanation;
+      exp.style.display = 'block';
+      var nextRow = document.getElementById(qid+'-next');
+      if(current < questions.length-1){
+        nextRow.style.display = 'block';
+      } else {
+        nextRow.innerHTML = '<button class="quiz-next-btn" onclick="quizFinish_'+qid+'()">See Results 🎉</button>';
+        nextRow.style.display = 'block';
+      }
+    };
+
+    window['quizNext_'+qid] = function(){
+      current++;
+      renderQ(current);
+    };
+
+    window['quizFinish_'+qid] = function(){
+      var total = questions.length;
+      var pct = Math.round(score/total*100);
+      var stars = pct>=90?'🌟🌟🌟':pct>=70?'⭐⭐':'⭐';
+      var html = '<div class="quiz-result">';
+      html += '<div class="quiz-score">'+stars+' '+score+'/'+total+' ('+pct+'%)</div>';
+      if(pct===100){html += '<div class="quiz-msg">Perfect score! You nailed it.</div>';}
+      else if(pct>=70){html += '<div class="quiz-msg">Good work! Review the ones you missed.</div>';}
+      else{html += '<div class="quiz-msg">Keep studying &#8212; you&#x27;ve got this!</div>';}
+      html += '<div class="quiz-result-btns">';
+      html += '<button class="quiz-retake-btn" onclick="quizRetake_'+qid+'()">↩ Retake Quiz</button>';
+      if(missed.length>0){html += '<button class="quiz-review-btn" onclick="quizReview_'+qid+'()">Review Missed ('+missed.length+')</button>';}
+      html += '</div></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+      document.getElementById(qid+'-progress').textContent = 'Complete!';
+      document.getElementById(qid+'-bar').style.width = '100%';
+    };
+
+    window['quizRetake_'+qid] = function(){
+      current = 0; score = 0; missed = [];
+      renderQ(0);
+    };
+
+    window['quizReview_'+qid] = function(){
+      current = missed[0];
+      missed = missed.slice(1);
+      score = 0;
+      renderQ(current);
+    };
+
+    renderQ(0);
+  })();
+  </script>
+</div>
+
+</section>
+<section id="phase3" class="section">
+  <div class="phase-header" style="border-left:5px solid #006494; padding-left:1.25rem;">
+    <div class="phase-badge" style="background:#006494;">📙 Phase 3</div>
+    <h2>Full Stack</h2>
+    <div class="phase-days" style="color:#006494;">Days 22–42</div>
+  </div>
+
+  <div class="phase-overview">
+    <p>Phase 2 was magic — AI builds the app, you describe it. Phase 3 is where you understand HOW the magic works. Knowing the inside gives you superpowers: you can fix things when they break, build more complex features, and charge more for your work. Full-stack means you can build the whole thing — what users see AND the engine underneath.</p>
+  </div>
+
+  <div class="objectives-box">
+    <div class="objectives-title">✅ By the end of this phase you can:</div>
+    <ul><li>By the end you can build a React app with multiple pages and interactive components</li><li>By the end you can use Next.js to build a fast, SEO-friendly full-stack app</li><li>By the end you can style apps professionally using Tailwind CSS utility classes</li><li>By the end you can write basic SQL queries to read and write to a Supabase database</li><li>By the end you can connect the OpenAI API to add real AI features to your app</li><li>By the end you can deploy a complete full-stack app to Vercel with a custom domain</li></ul>
+  </div>
+
+  <div class="rwe-card">
+    <div class="rwe-title">💼 How Phase 3 skills turned a side project into $3,000/month</div>
+    <p>Sarah built an AI review responder in Phase 2 using Lovable. It worked but she couldn't add new features because she didn't understand the code. After Phase 3, she rebuilt it in Next.js + Supabase + OpenAI. She added bulk processing, a dashboard, and a white-label option. Revenue went from $200/month to $3,000/month in 6 weeks — because she could build what her customers asked for.</p>
+  </div>
+
+  <div class="audio-player-bar">
+    <div class="audio-player-title">🎧 Listen to Phase 3 Introduction</div>
+    <audio id="phase3-audio" controls preload="none" class="audio-el">
+      Your browser does not support audio.
+    </audio>
+  </div>
+
+  <div class="section-subheader">📺 Video Resources</div>
+  <div class="video-grid">
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/tqjJrXd27m4/mqdefault.jpg" alt="React 19 Crash Course" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Traversy Media</div>
+    <div class="video-card-title">React 19 Crash Course</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=tqjJrXd27m4" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/jVsTUGRgy7s/mqdefault.jpg" alt="Next.js Full Course" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Dave Gray</div>
+    <div class="video-card-title">Next.js Full Course</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=jVsTUGRgy7s" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/dFgzHOX84xQ/mqdefault.jpg" alt="Tailwind CSS Crash Course" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Traversy Media</div>
+    <div class="video-card-title">Tailwind CSS Crash Course</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=dFgzHOX84xQ" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/EtLl7n2FVU0/mqdefault.jpg" alt="OpenAI API Tutorial" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">CodeLucky</div>
+    <div class="video-card-title">OpenAI API Tutorial</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=EtLl7n2FVU0" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+</div>
+
+  <div class="beginner-tip-box">
+  <div class="beginner-tip-label">🟢 Beginner Tips for This Phase</div>
+  <ul><li>💡 React's biggest trick is 'components' — reusable pieces of UI. Think of them like Lego bricks. Build each piece once, use it everywhere.</li><li>💡 When you get errors, copy-paste the exact error message into ChatGPT or Claude. 90% of errors have simple 5-minute fixes.</li><li>💡 Tailwind CSS classes look weird at first. After 2 days they feel natural. Don't fight them — learn the pattern.</li></ul>
+</div>
+
+  <div class="section-subheader">📅 Day-by-Day Schedule</div>
+  <div class="table-scroll">
+    <table class="curriculum-table">
+        <thead><tr>
+          <th>Day</th>
+          <th>Topic</th>
+          <th>Free Resource</th>
+          <th>What To Build</th>
+          <th>&#128204; Today's Instructions</th>
+        </tr></thead>
+        <tbody><tr>
+  <td>22</td>
+  <td>React Foundations</td>
+  <td><a href="https://www.youtube.com/watch?v=tqjJrXd27m4" target="_blank" rel="noopener noreferrer">React 19 Crash Course 2026</a></td>
+  <td>Simple React component rendered</td>
+  <td class="instruction-cell">Watch the React crash course (take notes!). Then in VS Code, create your first React component from scratch. A simple one: a ProfileCard that shows a name, photo, and bio. Run it and see it in the browser.</td>
+</tr><tr>
+  <td>23</td>
+  <td>React Components</td>
+  <td><a href="https://www.freecodecamp.org/learn/front-end-development-libraries/#react" target="_blank" rel="noopener noreferrer">freeCodeCamp React Course</a></td>
+  <td>3 reusable components built</td>
+  <td class="instruction-cell">Go through the freeCodeCamp React module. Today&#x27;s challenge: build 3 reusable components — a Button, a Card, and a Navbar. Then use them together on one page. Reusable means you can use them 10 times with different text.</td>
+</tr><tr>
+  <td>24</td>
+  <td>React State</td>
+  <td><a href="https://www.freecodecamp.org/learn/front-end-development-libraries/#react" target="_blank" rel="noopener noreferrer">freeCodeCamp React Course continued</a></td>
+  <td>Counter + form with state</td>
+  <td class="instruction-cell">Continue the freeCodeCamp React course. Focus on useState today. Build a simple counter (+ and - buttons) and then a form that remembers what you type. State is how React remembers things between clicks.</td>
+</tr><tr>
+  <td>25</td>
+  <td>Tailwind CSS</td>
+  <td><a href="https://www.youtube.com/watch?v=dFgzHOX84xQ" target="_blank" rel="noopener noreferrer">Tailwind CSS Crash Course — Traversy Media</a></td>
+  <td>Webpage restyled with Tailwind</td>
+  <td class="instruction-cell">Watch the Tailwind crash course. Then open your React project and install Tailwind. Re-style your components using only Tailwind classes — no more separate CSS files. Try: bg-teal-600, text-white, p-4, rounded-xl, shadow-md.</td>
+</tr><tr>
+  <td>26</td>
+  <td>React + Tailwind Project</td>
+  <td><a href="https://www.youtube.com/watch?v=tqjJrXd27m4" target="_blank" rel="noopener noreferrer">React + Tailwind combined</a></td>
+  <td>Landing page with components</td>
+  <td class="instruction-cell">Build a full landing page using React components + Tailwind styling. Include: Hero section, Feature cards (3 of them), Pricing table, Footer. Each section should be its own component. Ask Cursor to help with sections you&#x27;re unsure about.</td>
+</tr><tr>
+  <td>27</td>
+  <td>Next.js Intro</td>
+  <td><a href="https://www.youtube.com/watch?v=jVsTUGRgy7s" target="_blank" rel="noopener noreferrer">Complete Beginner&#x27;s Guide to Next.js 2026</a></td>
+  <td>Next.js project running locally</td>
+  <td class="instruction-cell">Watch the Next.js beginner guide. Then run: npx create-next-app@latest my-app in your terminal. Say yes to all options including Tailwind. Open the project in Cursor. Change the homepage text to something personal.</td>
+</tr><tr>
+  <td>28</td>
+  <td>Next.js Routing</td>
+  <td><a href="https://nextjs.org/learn" target="_blank" rel="noopener noreferrer">Official Next.js Learn Course — Ch. 1–4</a></td>
+  <td>Multi-page Next.js app</td>
+  <td class="instruction-cell">Go through Chapters 1–4 of the official Next.js tutorial at nextjs.org/learn. These chapters cover: creating pages, linking between them, and adding CSS. Complete all exercises in the browser. This is the best Next.js tutorial that exists.</td>
+</tr><tr>
+  <td>29</td>
+  <td>Next.js Data</td>
+  <td><a href="https://nextjs.org/learn" target="_blank" rel="noopener noreferrer">Official Next.js Learn Course — Ch. 5–8</a></td>
+  <td>Data fetching from API added</td>
+  <td class="instruction-cell">Continue with Chapters 5–8. These cover fetching data, databases, and streaming. Take your time — this is where it gets powerful. If something is confusing, pause and ask Claude: &#x27;Explain Next.js data fetching like I&#x27;m 12 years old.&#x27;</td>
+</tr><tr>
+  <td>30</td>
+  <td>Next.js Complete</td>
+  <td><a href="https://nextjs.org/learn" target="_blank" rel="noopener noreferrer">Official Next.js Learn Course — Ch. 9–16</a></td>
+  <td>Full Next.js dashboard app</td>
+  <td class="instruction-cell">Finish Chapters 9–16. By the end, you&#x27;ll have built a full Next.js dashboard app from scratch. This is a big achievement! After finishing, write down 3 things you learned. Then add the project to your GitHub.</td>
+</tr><tr>
+  <td>31</td>
+  <td>Supabase Intro</td>
+  <td><a href="https://supabase.com/solutions/beginners" target="_blank" rel="noopener noreferrer">Supabase for Beginners — Official</a></td>
+  <td>Supabase project created</td>
+  <td class="instruction-cell">Go to supabase.com and create a free account. Create a new project. In the Table Editor, create a table called &#x27;products&#x27; with columns: id, name, price, description. Insert 3 sample rows. Look at your data!</td>
+</tr><tr>
+  <td>32</td>
+  <td>Supabase Auth</td>
+  <td><a href="https://www.frontendtechlead.com/learn-supabase" target="_blank" rel="noopener noreferrer">Free Supabase Tutorial</a></td>
+  <td>Login/signup working in app</td>
+  <td class="instruction-cell">Follow the Supabase tutorial on frontendtechlead.com. Add authentication to your Next.js app: a signup page, login page, and a protected page that only logged-in users can see. Test by creating an account.</td>
+</tr><tr>
+  <td>33</td>
+  <td>Supabase Database</td>
+  <td><a href="https://dev.to/nhannguyenuri/getting-started-with-supabase-d1p" target="_blank" rel="noopener noreferrer">Getting Started with Supabase — dev.to</a></td>
+  <td>CRUD operations working</td>
+  <td class="instruction-cell">Read the dev.to guide. Build Create-Read-Update-Delete (CRUD) operations for your products table. In plain English: your app should be able to add, show, edit, and delete products. Ask Cursor to generate the code.</td>
+</tr><tr>
+  <td>34</td>
+  <td>Next.js + Supabase</td>
+  <td><a href="https://supabase.com/solutions/beginners" target="_blank" rel="noopener noreferrer">Supabase + Next.js integration guide</a></td>
+  <td>Full-stack app with real data</td>
+  <td class="instruction-cell">Follow Supabase&#x27;s Next.js integration guide. Connect your Next.js app to your Supabase database. Display real data from your database on your Next.js pages. This is full-stack! Front-end + back-end working together.</td>
+</tr><tr>
+  <td>35</td>
+  <td>Stripe Basics</td>
+  <td><a href="https://www.youtube.com/watch?v=unuomzBEHlE" target="_blank" rel="noopener noreferrer">Supabase + Stripe Full Stack Tutorial</a></td>
+  <td>Payment checkout page built</td>
+  <td class="instruction-cell">Watch the Supabase + Stripe tutorial. Add a payment button to your app. When someone clicks it, they go to a Stripe checkout page. Test the whole flow using 4242 4242 4242 4242. See the successful payment in your Stripe dashboard.</td>
+</tr><tr>
+  <td>36</td>
+  <td>Stripe Subscriptions</td>
+  <td><a href="https://www.youtube.com/watch?v=Z87vZFYC7hc" target="_blank" rel="noopener noreferrer">Full-Stack App with Supabase + Stripe</a></td>
+  <td>Monthly subscription working</td>
+  <td class="instruction-cell">Watch this full-stack tutorial. Create a monthly subscription plan in Stripe ($19/month). Add a &#x27;Subscribe&#x27; button to your app that starts the subscription. After a test payment, confirm the user gets access to premium features.</td>
+</tr><tr>
+  <td>37</td>
+  <td>Stripe Webhooks</td>
+  <td><a href="https://stripe.com/docs" target="_blank" rel="noopener noreferrer">Stripe docs — stripe.com/docs</a></td>
+  <td>Webhook receiving payments</td>
+  <td class="instruction-cell">Read the Stripe webhooks documentation. Create a webhook endpoint in your Next.js app (a special URL that Stripe sends notifications to). When Stripe sends a &#x27;payment_succeeded&#x27; event, your app unlocks user access. Ask Cursor to write the webhook handler.</td>
+</tr><tr>
+  <td>38</td>
+  <td>OpenAI API Setup</td>
+  <td><a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreferrer">OpenAI API Quickstart</a></td>
+  <td>OpenAI API key working</td>
+  <td class="instruction-cell">Go to platform.openai.com and create an account. Get your API key. Add it to your .env.local file as OPENAI_API_KEY=your-key-here. Follow the quickstart guide to make your first API call. Ask it: &#x27;Explain what this app does in one sentence.&#x27;</td>
+</tr><tr>
+  <td>39</td>
+  <td>AI Chatbot</td>
+  <td><a href="https://www.futurepedia.io/courses/ai-coding-for-entrepreneurs" target="_blank" rel="noopener noreferrer">Futurepedia AI Coding for Entrepreneurs</a></td>
+  <td>Working chatbot in your app</td>
+  <td class="instruction-cell">Build an AI chatbot feature using the OpenAI API. Ask Cursor: &#x27;Add a chat widget to my app. Users can type questions and get AI responses using OpenAI GPT.&#x27; Test it by asking it questions about your app&#x27;s topic.</td>
+</tr><tr>
+  <td>40</td>
+  <td>AI Content Generation</td>
+  <td><a href="https://platform.openai.com/docs" target="_blank" rel="noopener noreferrer">OpenAI API docs — platform.openai.com</a></td>
+  <td>AI-generated content feature</td>
+  <td class="instruction-cell">Add an AI content generation feature. For example: a button that generates product descriptions, blog post drafts, or email templates. Use the OpenAI API. Prompt engineering tip: be specific about format — &#x27;Write a 50-word product description for...&#x27;</td>
+</tr><tr>
+  <td>41</td>
+  <td>Vercel Deploy</td>
+  <td><a href="https://www.youtube.com/watch?v=EUgBkuBzTPA" target="_blank" rel="noopener noreferrer">Deploy AI Project to Vercel — Jan 2026 Tutorial</a></td>
+  <td>Full-stack app live on Vercel</td>
+  <td class="instruction-cell">Watch this deploy tutorial. Push your complete Next.js + Supabase + Stripe + OpenAI app to GitHub. Then deploy to Vercel. Add your environment variables (API keys) in the Vercel dashboard under Settings → Environment Variables. Go live!</td>
+</tr><tr class="milestone-row">
+  <td>42</td>
+  <td>Milestone Review</td>
+  <td>All tools combined</td>
+  <td>Portfolio: 3+ apps deployed</td>
+  <td class="instruction-cell">Today is a review day — no new learning! Open all 3+ apps you&#x27;ve built and test each one. Fix any broken links or errors. Write a simple README for each GitHub repo describing what the app does. You&#x27;ve completed Phase 3!</td>
+</tr></tbody>
+      </table>
+  </div>
+
+  <div class="practice-card">
+    <div class="practice-label">🛠 Practice Task</div>
+    <div class="practice-title">Mini-Project: Build an AI-Powered Business Tool</div>
+    <p>Build a complete Next.js app with: user auth (Supabase), one AI feature (OpenAI API), a subscription plan (Stripe), and a custom domain (Vercel). Choose a real niche: review responder, proposal generator, customer FAQ bot, or anything businesses would pay for.</p>
+    <div class="practice-why"><strong>Why it matters:</strong> This is the first app you could actually sell. Real auth, real payments, real AI. Show it to 3 business owners and ask if they'd pay for it.</div>
+  </div>
+
+  <div class="quiz-container" id="quiz-phase3">
+  <div class="quiz-header">
+    <span class="quiz-label">🧠 Knowledge Check</span>
+    <span class="quiz-progress" id="quiz-phase3-progress">Question 1 of 12</span>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-phase3-bar" style="width:0%"></div></div>
+  <div id="quiz-phase3-body">
+    <!-- rendered by JS -->
+  </div>
+  <script>
+  (function(){
+    var questions = [{"question": "What does 'full-stack' mean?", "options": ["A stack of pancakes", "Knowing both frontend (what users see) and backend (server + database)", "Building mobile apps", "Writing many languages"], "correct_index": 1, "explanation": "Full-stack = the whole app. Frontend is what users see. Backend is the invisible engine: database, logic, APIs. You can now build both."}, {"question": "What is React?", "options": ["A backend database", "A JavaScript library for building interactive user interfaces with reusable components", "A payment tool", "A hosting service"], "correct_index": 1, "explanation": "React is the most popular way to build web UIs. It uses components \u2014 reusable pieces of UI. Build once, use everywhere."}, {"question": "In React, what is a 'component'?", "options": ["A server", "A reusable UI piece (button, card, navbar) you build once and use many times", "A database table", "A payment method"], "correct_index": 1, "explanation": "Components are Lego bricks. Build a Card component once. Use it 50 times. Change it once, updates everywhere. This is why React apps are fast to build."}, {"question": "What is Next.js?", "options": ["A database", "A React framework with routing, server-side rendering, and Vercel deployment built in", "An AI model", "A CSS library"], "correct_index": 1, "explanation": "Next.js is React + superpowers. Routing between pages, faster load times, better SEO, and one-click Vercel deploy. Most startups use it."}, {"question": "What is Tailwind CSS?", "options": ["A JavaScript framework", "A utility CSS framework \u2014 style by adding class names like 'text-xl' directly in HTML", "A database", "An AI tool"], "correct_index": 1, "explanation": "Tailwind = no CSS files. Add utility classes to HTML directly. 'bg-blue-500' = blue background. 'p-4' = padding. Fast, clean, consistent."}, {"question": "What is an API?", "options": ["A database type", "A programming language", "A way for software to communicate with other software over the internet", "A design framework"], "correct_index": 2, "explanation": "API = Application Programming Interface. When your app calls OpenAI for an AI response, that's an API call. When you check weather from a weather service, same thing."}, {"question": "What does the OpenAI API let you do?", "options": ["Host websites", "Process payments", "Add AI to your app \u2014 text generation, chat, summaries, analysis", "Create databases"], "correct_index": 2, "explanation": "The OpenAI API gives your app the same brain as ChatGPT. Answer questions, write content, summarize documents, analyze data \u2014 all from inside your app."}, {"question": "What is a SQL query?", "options": ["A design question", "A language for asking questions of a database \u2014 like 'get all users who signed up this week'", "A bug in code", "A payment request"], "correct_index": 1, "explanation": "SQL is how you talk to databases. 'SELECT * FROM users WHERE created_at > today' means 'show me everyone who signed up today.' Claude can write SQL for you \u2014 just describe what you want."}, {"question": "What is a Stripe webhook?", "options": ["A website tool", "A notification Stripe sends your app when a payment event happens (like a successful subscription)", "A payment link", "A test card"], "correct_index": 1, "explanation": "Webhooks are automatic notifications. When a customer pays, Stripe instantly tells your app. Your app then unlocks their access. Without webhooks, payments would work but your app wouldn't know."}, {"question": "What is server-side rendering (SSR)?", "options": ["The server playing games", "Generating HTML on the server before sending to browser \u2014 faster loads and better SEO", "A database type", "A payment method"], "correct_index": 1, "explanation": "SSR = the server does the work before your browser gets the page. Result: faster load, Google can read your content, better rankings. Next.js does this automatically."}, {"question": "What is Vercel Analytics?", "options": ["A payment tracker", "A tool showing who visits your app, what pages they view, and where they come from", "A database viewer", "A code debugger"], "correct_index": 1, "explanation": "Analytics = knowing your users. How many visited? Which pages? Where are they from? Free to add with one line of code. Essential for any real product."}, {"question": "After Phase 3, what can you build?", "options": ["Only a static webpage", "A complete full-stack app with auth, database, payments, AI, custom domain \u2014 something you could sell", "Only mobile apps", "Only chatbots"], "correct_index": 1, "explanation": "Phase 3 = real builder. You can now build the full stack: Next.js + Supabase + Stripe + OpenAI + Vercel. That's everything a paying SaaS product needs."}];
+    var qid = "quiz-phase3";
+    var current = 0;
+    var score = 0;
+    var missed = [];
+    var answered = false;
+
+    function renderQ(idx) {
+      answered = false;
+      var q = questions[idx];
+      var total = questions.length;
+      document.getElementById(qid+'-progress').textContent = 'Question '+(idx+1)+' of '+total;
+      document.getElementById(qid+'-bar').style.width = (idx/total*100)+'%';
+      var html = '<div class="quiz-question">'+escH(q.question)+'</div>';
+      html += '<div class="quiz-options">';
+      for(var i=0;i<q.options.length;i++){
+        html += '<button class="quiz-opt" onclick="quizAnswer_'+qid+'(this,'+i+')" data-idx="'+i+'">'+escH(q.options[i])+'</button>';
+      }
+      html += '</div>';
+      html += '<div class="quiz-explanation" id="'+qid+'-exp" style="display:none"></div>';
+      html += '<div class="quiz-next-row" id="'+qid+'-next" style="display:none"><button class="quiz-next-btn" onclick="quizNext_'+qid+'()">Next Question →</button></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+    }
+
+    function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+    window['quizAnswer_'+qid] = function(btn, idx){
+      if(answered) return;
+      answered = true;
+      var q = questions[current];
+      var opts = document.querySelectorAll('#'+qid+' .quiz-opt');
+      opts.forEach(function(o){ o.disabled = true; });
+      if(idx === q.correct_index){
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        opts[q.correct_index].classList.add('correct');
+        missed.push(current);
+      }
+      var exp = document.getElementById(qid+'-exp');
+      exp.textContent = q.explanation;
+      exp.style.display = 'block';
+      var nextRow = document.getElementById(qid+'-next');
+      if(current < questions.length-1){
+        nextRow.style.display = 'block';
+      } else {
+        nextRow.innerHTML = '<button class="quiz-next-btn" onclick="quizFinish_'+qid+'()">See Results 🎉</button>';
+        nextRow.style.display = 'block';
+      }
+    };
+
+    window['quizNext_'+qid] = function(){
+      current++;
+      renderQ(current);
+    };
+
+    window['quizFinish_'+qid] = function(){
+      var total = questions.length;
+      var pct = Math.round(score/total*100);
+      var stars = pct>=90?'🌟🌟🌟':pct>=70?'⭐⭐':'⭐';
+      var html = '<div class="quiz-result">';
+      html += '<div class="quiz-score">'+stars+' '+score+'/'+total+' ('+pct+'%)</div>';
+      if(pct===100){html += '<div class="quiz-msg">Perfect score! You nailed it.</div>';}
+      else if(pct>=70){html += '<div class="quiz-msg">Good work! Review the ones you missed.</div>';}
+      else{html += '<div class="quiz-msg">Keep studying &#8212; you&#x27;ve got this!</div>';}
+      html += '<div class="quiz-result-btns">';
+      html += '<button class="quiz-retake-btn" onclick="quizRetake_'+qid+'()">↩ Retake Quiz</button>';
+      if(missed.length>0){html += '<button class="quiz-review-btn" onclick="quizReview_'+qid+'()">Review Missed ('+missed.length+')</button>';}
+      html += '</div></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+      document.getElementById(qid+'-progress').textContent = 'Complete!';
+      document.getElementById(qid+'-bar').style.width = '100%';
+    };
+
+    window['quizRetake_'+qid] = function(){
+      current = 0; score = 0; missed = [];
+      renderQ(0);
+    };
+
+    window['quizReview_'+qid] = function(){
+      current = missed[0];
+      missed = missed.slice(1);
+      score = 0;
+      renderQ(current);
+    };
+
+    renderQ(0);
+  })();
+  </script>
+</div>
+
+</section>
+<section id="phase4" class="section section-alt">
+  <div class="phase-header" style="border-left:5px solid #B5830A; padding-left:1.25rem;">
+    <div class="phase-badge" style="background:#B5830A;">📕 Phase 4</div>
+    <h2>Real App</h2>
+    <div class="phase-days" style="color:#B5830A;">Days 43–60</div>
+  </div>
+
+  <div class="phase-overview">
+    <p>All the tools. All the skills. One real product. Phase 4 is where you stop practicing and start building. You'll plan, build, launch, and get your first real users. This is the most important phase — and the most exciting.</p>
+  </div>
+
+  <div class="objectives-box">
+    <div class="objectives-title">✅ By the end of this phase you can:</div>
+    <ul><li>By the end you can write a clear product plan (PRD) for your app using Claude</li><li>By the end you can build a complete MVP in under a week using your Phase 1–3 skills</li><li>By the end you can collect real user feedback and ship an improved version</li><li>By the end you can set up a marketing landing page that explains your product</li><li>By the end you can launch publicly and reach your first 10 users</li></ul>
+  </div>
+
+  <div class="rwe-card">
+    <div class="rwe-title">💼 Day 60 looks different for everyone — and that's the point</div>
+    <p>Kevin built an AI proposal generator for contractors. Nina built a pet sitting portal for her neighborhood. David built a bilingual customer FAQ bot for Chinese restaurants in California. None of them had coding experience 60 days earlier. All three had paying users by Day 60. The apps were different. The process was identical: plan it, build it, show people, improve it, launch it.</p>
+  </div>
+
+  <div class="audio-player-bar">
+    <div class="audio-player-title">🎧 Listen to Phase 4 Introduction</div>
+    <audio id="phase4-audio" controls preload="none" class="audio-el">
+      Your browser does not support audio.
+    </audio>
+  </div>
+
+  <div class="section-subheader">📺 Video Resources</div>
+  <div class="video-grid">
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/1HN3RaYb7xo/mqdefault.jpg" alt="Deploy with Vercel 2026" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">ErnzoTech</div>
+    <div class="video-card-title">Deploy with Vercel 2026</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=1HN3RaYb7xo" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/ffJ38dBzrlY/mqdefault.jpg" alt="Build &amp; Deploy Full Stack AI App" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Code With Antonio</div>
+    <div class="video-card-title">Build &amp; Deploy Full Stack AI App</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=ffJ38dBzrlY" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/NtfbWkxJTHw/mqdefault.jpg" alt="How to Learn to Code" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Fireship</div>
+    <div class="video-card-title">How to Learn to Code</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=NtfbWkxJTHw" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+</div>
+
+  <div class="beginner-tip-box">
+  <div class="beginner-tip-label">🟢 Beginner Tips for This Phase</div>
+  <ul><li>💡 Ship an imperfect app in 3 days rather than a perfect app in 3 months. You'll learn more from one real user than from 100 more hours of solo building.</li><li>💡 Your first version will embarrass you in a year. That's the goal. Ship it anyway.</li><li>💡 Use Stripe's test mode for payments until you're ready to go live. Don't block launch on payment complexity.</li></ul>
+</div>
+
+  <div class="section-subheader">📅 Day-by-Day Schedule</div>
+  <div class="table-scroll">
+    <table class="curriculum-table">
+        <thead><tr>
+          <th>Day</th>
+          <th>Topic</th>
+          <th>Free Resource</th>
+          <th>What To Build</th>
+          <th>&#128204; Today's Instructions</th>
+        </tr></thead>
+        <tbody><tr>
+  <td>43</td>
+  <td>Choose Your Product</td>
+  <td>Internal planning + Claude AI</td>
+  <td>Product idea + target user written</td>
+  <td class="instruction-cell">Open Claude at claude.ai (free). Type: &#x27;I want to build a SaaS app. My background is [your background]. Help me think of 3 app ideas for [specific audience]. For each idea, tell me: who pays for it, and why.&#x27; Pick one idea and write 3 sentences describing it.</td>
+</tr><tr>
+  <td>44</td>
+  <td>PRD + Architecture</td>
+  <td><a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude — claude.ai</a></td>
+  <td>Complete PRD document written</td>
+  <td class="instruction-cell">Write your Product Requirements Document with Claude&#x27;s help. Ask: &#x27;Help me write a PRD for my app: [your app description]. Include: what it does, who it&#x27;s for, the 5 main features, and pricing.&#x27; Save it in a Google Doc. This is your North Star.</td>
+</tr><tr>
+  <td>45</td>
+  <td>Build Core (Day 1)</td>
+  <td><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable — lovable.dev</a></td>
+  <td>Core app UI built</td>
+  <td class="instruction-cell">Open Lovable and paste your PRD summary as the app description. Let Lovable build the first version of your app. Don&#x27;t expect perfection — expect a working skeleton. Focus on: does the main feature work? Can a user do the core action?</td>
+</tr><tr>
+  <td>46</td>
+  <td>Build Core (Day 2)</td>
+  <td><a href="https://cursor.com" target="_blank" rel="noopener noreferrer">Cursor — cursor.com</a></td>
+  <td>Core features working</td>
+  <td class="instruction-cell">Open your Lovable-built app in Cursor. Start refining. Ask Cursor: &#x27;Improve the UI to look more professional. Add proper error messages when something goes wrong. Make the main button more prominent.&#x27; Fix the 3 most important things.</td>
+</tr><tr>
+  <td>47</td>
+  <td>Add Auth + Payments</td>
+  <td><a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase + Stripe integration</a></td>
+  <td>Login + payments working</td>
+  <td class="instruction-cell">Connect Supabase for user accounts and Stripe for payments. Test the complete flow: visit your app → sign up → subscribe → access premium features. If anything breaks, ask Cursor to debug: &#x27;I get this error: [paste error]. How do I fix it?&#x27;</td>
+</tr><tr>
+  <td>48</td>
+  <td>Add AI Features</td>
+  <td><a href="https://platform.openai.com" target="_blank" rel="noopener noreferrer">OpenAI API integration</a></td>
+  <td>AI feature live in app</td>
+  <td class="instruction-cell">Add the AI feature that makes your app special. What&#x27;s the one AI thing your users will love? A smart assistant? Auto-fill? Analysis? Build it. Keep it simple — one focused AI feature done well is better than five half-finished ones.</td>
+</tr><tr>
+  <td>49</td>
+  <td>First User Test</td>
+  <td>Real person feedback</td>
+  <td>5 user feedbacks collected</td>
+  <td class="instruction-cell">Find 5 real people to test your app — family, friends, WeChat contacts. Don&#x27;t explain anything. Just watch them use it. Write down: what confused them, what they asked, what they loved. This feedback is GOLD. Don&#x27;t defend your choices — just listen.</td>
+</tr><tr>
+  <td>50</td>
+  <td>Fix + Iterate</td>
+  <td>Based on user feedback</td>
+  <td>Top 3 issues fixed</td>
+  <td class="instruction-cell">Look at your feedback notes. Pick the 3 most common problems. Fix those first. Ask Cursor to help: &#x27;My users were confused by X. Change it to Y.&#x27; Then re-test with 2 people. Is it better? Repeat until it feels smooth.</td>
+</tr><tr>
+  <td>51</td>
+  <td>Mobile Responsive</td>
+  <td><a href="https://tailwindcss.com/docs/responsive-design" target="_blank" rel="noopener noreferrer">Tailwind responsive docs</a></td>
+  <td>App looks great on phone</td>
+  <td class="instruction-cell">Open your app on your phone. What looks broken? Small text? Buttons too close together? Go to Cursor and ask: &#x27;Make my app mobile responsive. Fix: [list the problems you see on your phone].&#x27; Test on both Android and iPhone if possible.</td>
+</tr><tr>
+  <td>52</td>
+  <td>SEO Basics</td>
+  <td><a href="https://nextjs.org/learn/seo/introduction-to-seo" target="_blank" rel="noopener noreferrer">Next.js SEO guide</a></td>
+  <td>Meta tags + sitemap added</td>
+  <td class="instruction-cell">Follow the Next.js SEO guide. Add a page title, description, and Open Graph image to every page. When someone shares your app on LinkedIn or WeChat, it should show a nice preview card — not a blank link. Google needs this too.</td>
+</tr><tr>
+  <td>53</td>
+  <td>Marketing Page</td>
+  <td><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable — landing page</a></td>
+  <td>Landing page live</td>
+  <td class="instruction-cell">Build a standalone marketing page for your app. Use Lovable to generate it fast. Include: headline (&#x27;The easiest way to...&#x27;), 3 feature benefits, pricing section, and a &#x27;Get Started&#x27; button. This is the page you&#x27;ll share with potential customers.</td>
+</tr><tr>
+  <td>54</td>
+  <td>Custom Domain</td>
+  <td><a href="https://vercel.com/docs/projects/domains" target="_blank" rel="noopener noreferrer">Vercel domains guide</a></td>
+  <td>yourapp.com connected</td>
+  <td class="instruction-cell">Buy a domain name at namecheap.com or porkbun.com (~$12/year). Then follow Vercel&#x27;s domain guide to connect it. Your app will now live at yourapp.com instead of yourapp.vercel.app. This is the moment it feels real. Screenshot it!</td>
+</tr><tr>
+  <td>55</td>
+  <td>Analytics</td>
+  <td><a href="https://vercel.com/analytics" target="_blank" rel="noopener noreferrer">Vercel Analytics — vercel.com</a></td>
+  <td>Analytics tracking visitors</td>
+  <td class="instruction-cell">In your Vercel dashboard, go to Analytics and enable it (free). Add one line of code to your Next.js app. Now you&#x27;ll see: how many people visit, which pages they view, where they come from. Check it every morning.</td>
+</tr><tr>
+  <td>56</td>
+  <td>Email Notifications</td>
+  <td><a href="https://resend.com" target="_blank" rel="noopener noreferrer">Resend — resend.com</a></td>
+  <td>Welcome emails sending automatically</td>
+  <td class="instruction-cell">Sign up at resend.com (free plan). Ask Cursor to &#x27;Add Resend email to my app. Send a welcome email when someone signs up and a receipt email when they pay.&#x27; Test by signing up as a new user — you should receive the welcome email in your inbox.</td>
+</tr><tr>
+  <td>57</td>
+  <td>Beta Launch</td>
+  <td><a href="https://www.producthunt.com" target="_blank" rel="noopener noreferrer">Product Hunt + local groups</a></td>
+  <td>First real users signed up</td>
+  <td class="instruction-cell">Share your app! Post in: a relevant Facebook group, a Reddit community, your LinkedIn, and WeChat. Write a simple message: &#x27;I built this app for [specific people]. It does [specific thing]. Try it free: [your link]. Would love your feedback.&#x27; Don&#x27;t be shy!</td>
+</tr><tr>
+  <td>58</td>
+  <td>Outreach (Chinese SMBs)</td>
+  <td><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn + WeChat outreach</a></td>
+  <td>5 business owners contacted</td>
+  <td class="instruction-cell">Identify 5 small business owners who might need your app. Send them a personal message (not copy-paste): &#x27;Hi [name], I saw you run [their business]. I built an app that helps [specific problem you solve]. Can I show you a 5-minute demo? No pressure at all.&#x27;</td>
+</tr><tr>
+  <td>59</td>
+  <td>Iterate on Feedback</td>
+  <td>All tools combined</td>
+  <td>Version 2 deployed</td>
+  <td class="instruction-cell">Take all feedback from your first users. Pick the most important improvements. Ask Cursor to help build them. Deploy Version 2. Message the people who gave feedback: &#x27;I heard your feedback and updated the app. Please check: [link]. Does this fix the problem you mentioned?&#x27;</td>
+</tr><tr class="milestone-row">
+  <td>60</td>
+  <td>Launch + Celebrate</td>
+  <td>You did it!</td>
+  <td>MILESTONE: Real app, real users, real revenue potential</td>
+  <td class="instruction-cell">Today, write down: 1) What did you build? 2) Who are your first users? 3) What&#x27;s the next feature you&#x27;ll add? Then celebrate — seriously. You went from zero to a real app in 60 days. That&#x27;s extraordinary. Share your story.</td>
+</tr></tbody>
+      </table>
+  </div>
+
+  <div class="practice-card">
+    <div class="practice-label">🛠 Practice Task</div>
+    <div class="practice-title">The Launch Challenge</div>
+    <p>By Day 60, you must have: a live app at a custom domain, at least 1 paying or active user, and a list of 5 things you would improve in Version 2. That's it. Not perfect. Real.</p>
+    <div class="practice-why"><strong>Why it matters:</strong> Shipping beats planning. Every lesson you've learned only becomes real when someone other than you uses your product.</div>
+  </div>
+
+  <div class="quiz-container" id="quiz-phase4">
+  <div class="quiz-header">
+    <span class="quiz-label">🧠 Knowledge Check</span>
+    <span class="quiz-progress" id="quiz-phase4-progress">Question 1 of 10</span>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-phase4-bar" style="width:0%"></div></div>
+  <div id="quiz-phase4-body">
+    <!-- rendered by JS -->
+  </div>
+  <script>
+  (function(){
+    var questions = [{"question": "What is a PRD?", "options": ["Programming Reference Doc", "Product Requirements Document \u2014 a clear plan of what your app does before you build", "Primary React Design", "Public Release Draft"], "correct_index": 1, "explanation": "PRD = your roadmap. It defines the target user, problem, features, and payment model BEFORE you build. Claude can write one in 5 minutes. It saves weeks of confusion."}, {"question": "Why should you test with a real user before perfecting the app?", "options": ["You shouldn't \u2014 perfect it first", "Real users find problems you never imagined", "It saves hosting costs", "It improves SEO"], "correct_index": 1, "explanation": "Real users ALWAYS find unexpected issues. One hour watching a real person use your app teaches more than 10 hours of solo testing."}, {"question": "What is a 'landing page'?", "options": ["Where planes land", "A public page explaining what your app does and why people should pay for it", "The login page", "The database admin page"], "correct_index": 1, "explanation": "Your landing page is your storefront. It has a headline, features, pricing, and a CTA (call to action \u2014 sign up button). It answers: 'Why should I pay for this?'"}, {"question": "Why is a custom domain important?", "options": ["Makes app faster", "Makes it look professional and credible instead of a random generated URL", "Reduces Stripe fees", "Improves database speed"], "correct_index": 1, "explanation": "yourapp.com = real business. random-abc123.vercel.app = hobby project. A domain costs ~$12/year. One of the highest-ROI things you can do."}, {"question": "What is the subscription business model?", "options": ["Pay once, own forever", "Pay a recurring fee monthly or yearly to keep access", "Pay per feature", "Free forever"], "correct_index": 1, "explanation": "Subscriptions = recurring revenue. Your income grows every month as you add users. Most SaaS businesses use this model. Stripe makes it easy to set up."}, {"question": "What does Vercel Analytics show you?", "options": ["Payment data", "Who visits your app, which pages they view, and where they come from", "Database tables", "Code errors"], "correct_index": 1, "explanation": "Analytics = knowing your users. Are people visiting? What pages do they leave from? Free to add with Vercel. Essential for improving your product."}, {"question": "What is Product Hunt?", "options": ["A job board", "A platform where makers launch products and get exposure to thousands of early adopters", "A code repo", "A payment tool"], "correct_index": 1, "explanation": "Product Hunt is where tech products get discovered. A good launch brings hundreds of visitors in one day. Free to list. Great for getting your first users."}, {"question": "What does Version 2 of your app mean?", "options": ["A completely new app", "An improved version based on real user feedback \u2014 fixing problems and adding what users asked for", "A design rebrand", "Migrating to new hosting"], "correct_index": 1, "explanation": "Version 2 = you listened and improved. Build \u2192 get feedback \u2192 improve \u2192 release. This cycle is how all successful products grow."}, {"question": "What is the goal of Day 60?", "options": ["Finish all tutorials", "Memorize syntax", "Have a live app with real users and revenue potential", "Build 10 apps"], "correct_index": 2, "explanation": "Day 60 = SHIPPED. A real product. A real URL. Real users. That's everything. Not perfect \u2014 real. Most people who start learning to code never get here. You did."}, {"question": "What is the #1 rule of Phase 4?", "options": ["Plan perfectly before building", "Ship ugly \u2014 real user feedback beats solo perfecting every time", "Learn more before launching", "Build in private for 6 months"], "correct_index": 1, "explanation": "Ship ugly. Your first version will not be perfect. That's normal. Real feedback from real users is worth more than 100 hours of solo refining."}];
+    var qid = "quiz-phase4";
+    var current = 0;
+    var score = 0;
+    var missed = [];
+    var answered = false;
+
+    function renderQ(idx) {
+      answered = false;
+      var q = questions[idx];
+      var total = questions.length;
+      document.getElementById(qid+'-progress').textContent = 'Question '+(idx+1)+' of '+total;
+      document.getElementById(qid+'-bar').style.width = (idx/total*100)+'%';
+      var html = '<div class="quiz-question">'+escH(q.question)+'</div>';
+      html += '<div class="quiz-options">';
+      for(var i=0;i<q.options.length;i++){
+        html += '<button class="quiz-opt" onclick="quizAnswer_'+qid+'(this,'+i+')" data-idx="'+i+'">'+escH(q.options[i])+'</button>';
+      }
+      html += '</div>';
+      html += '<div class="quiz-explanation" id="'+qid+'-exp" style="display:none"></div>';
+      html += '<div class="quiz-next-row" id="'+qid+'-next" style="display:none"><button class="quiz-next-btn" onclick="quizNext_'+qid+'()">Next Question →</button></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+    }
+
+    function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+    window['quizAnswer_'+qid] = function(btn, idx){
+      if(answered) return;
+      answered = true;
+      var q = questions[current];
+      var opts = document.querySelectorAll('#'+qid+' .quiz-opt');
+      opts.forEach(function(o){ o.disabled = true; });
+      if(idx === q.correct_index){
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        opts[q.correct_index].classList.add('correct');
+        missed.push(current);
+      }
+      var exp = document.getElementById(qid+'-exp');
+      exp.textContent = q.explanation;
+      exp.style.display = 'block';
+      var nextRow = document.getElementById(qid+'-next');
+      if(current < questions.length-1){
+        nextRow.style.display = 'block';
+      } else {
+        nextRow.innerHTML = '<button class="quiz-next-btn" onclick="quizFinish_'+qid+'()">See Results 🎉</button>';
+        nextRow.style.display = 'block';
+      }
+    };
+
+    window['quizNext_'+qid] = function(){
+      current++;
+      renderQ(current);
+    };
+
+    window['quizFinish_'+qid] = function(){
+      var total = questions.length;
+      var pct = Math.round(score/total*100);
+      var stars = pct>=90?'🌟🌟🌟':pct>=70?'⭐⭐':'⭐';
+      var html = '<div class="quiz-result">';
+      html += '<div class="quiz-score">'+stars+' '+score+'/'+total+' ('+pct+'%)</div>';
+      if(pct===100){html += '<div class="quiz-msg">Perfect score! You nailed it.</div>';}
+      else if(pct>=70){html += '<div class="quiz-msg">Good work! Review the ones you missed.</div>';}
+      else{html += '<div class="quiz-msg">Keep studying &#8212; you&#x27;ve got this!</div>';}
+      html += '<div class="quiz-result-btns">';
+      html += '<button class="quiz-retake-btn" onclick="quizRetake_'+qid+'()">↩ Retake Quiz</button>';
+      if(missed.length>0){html += '<button class="quiz-review-btn" onclick="quizReview_'+qid+'()">Review Missed ('+missed.length+')</button>';}
+      html += '</div></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+      document.getElementById(qid+'-progress').textContent = 'Complete!';
+      document.getElementById(qid+'-bar').style.width = '100%';
+    };
+
+    window['quizRetake_'+qid] = function(){
+      current = 0; score = 0; missed = [];
+      renderQ(0);
+    };
+
+    window['quizReview_'+qid] = function(){
+      current = missed[0];
+      missed = missed.slice(1);
+      score = 0;
+      renderQ(current);
+    };
+
+    renderQ(0);
+  })();
+  </script>
+</div>
+
+</section>
+<section id="phase5" class="section">
+  <div class="phase-header" style="border-left:5px solid #7A39BB; padding-left:1.25rem;">
+    <div class="phase-badge" style="background:#7A39BB;">🤖 Phase 5</div>
+    <h2>AI Agents</h2>
+    <div class="phase-days" style="color:#7A39BB;">Days 61–75</div>
+  </div>
+
+  <div class="phase-overview">
+    <p>You've built apps. Now you're going to make them think for themselves. An AI agent is an app that can set goals, plan steps, use tools, check results, and keep going — without you clicking every button. This is the future of software. And it's more beginner-friendly than you think.</p>
+  </div>
+
+  <div class="objectives-box">
+    <div class="objectives-title">✅ By the end of this phase you can:</div>
+    <ul><li>By the end you can explain the difference between a chatbot, an AI app, and an AI agent</li><li>By the end you can build a simple agent using n8n's visual workflow builder</li><li>By the end you can give an agent tools (email, search, database) it can use on its own</li><li>By the end you can build a basic RAG system (agent that reads your documents and answers questions)</li><li>By the end you can add a simple agent to your existing Phase 4 app</li><li>By the end you can describe 3 real business problems that an agent could solve better than a chatbot</li></ul>
+  </div>
+
+  <div class="rwe-card">
+    <div class="rwe-title">💼 What an agent does that a chatbot can't</div>
+    <p>A chatbot answers: 'What's our return policy?' An agent can: receive a return request email, check the order database, verify the purchase date, generate a return label, email it to the customer, and update the ticket status — all without a human touching it. Same AI brain. Very different capability. That's the difference between a tool and an agent.</p>
+  </div>
+
+  <div class="audio-player-bar">
+    <div class="audio-player-title">🎧 Listen to Phase 5 Introduction</div>
+    <audio id="phase5-audio" controls preload="none" class="audio-el">
+      Your browser does not support audio.
+    </audio>
+  </div>
+
+  <div class="section-subheader">📺 Video Resources</div>
+  <div class="video-grid">
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/C05XDMGaAn8/mqdefault.jpg" alt="AI Agent Tutorial for Beginners 2026" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">MikeyNoCode</div>
+    <div class="video-card-title">AI Agent Tutorial for Beginners 2026</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=C05XDMGaAn8" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/a8NA0WGI9OI/mqdefault.jpg" alt="Build AI Agents with n8n" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Matt (Metics Media)</div>
+    <div class="video-card-title">Build AI Agents with n8n</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=a8NA0WGI9OI" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/bRmgNHVKo_I/mqdefault.jpg" alt="n8n AI Agent Crash Course" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">n8n</div>
+    <div class="video-card-title">n8n AI Agent Crash Course</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=bRmgNHVKo_I" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+<div class="video-card">
+  <img class="video-thumb" src="https://img.youtube.com/vi/lG7Uxts9SXs/mqdefault.jpg" alt="LangChain for Beginners" loading="lazy">
+  <div class="video-card-body">
+    <div class="video-card-channel">Patrick Loeber</div>
+    <div class="video-card-title">LangChain for Beginners</div>
+    <a class="video-card-btn" href="https://www.youtube.com/watch?v=lG7Uxts9SXs" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+  </div>
+</div>
+</div>
+
+  <div class="beginner-tip-box">
+  <div class="beginner-tip-label">🟢 Beginner Tips for This Phase</div>
+  <ul><li>💡 An agent is just a loop: Perceive → Plan → Act → Observe. Once you see that pattern, you'll recognize it everywhere.</li><li>💡 Start simple. Build a 1-tool agent before you build a 10-tool agent. Complexity compounds bugs.</li><li>💡 n8n is visual. If you get stuck, zoom out and look at the full workflow diagram. Most problems are obvious when you see the big picture.</li></ul>
+</div>
+
+  <div class="section-subheader">📅 Day-by-Day Schedule</div>
+  <div class="table-scroll">
+    <table class="curriculum-table">
+  <thead><tr>
+    <th>Day</th>
+    <th>Topic</th>
+    <th>Free Resource</th>
+    <th>What To Do Today</th>
+  </tr></thead>
+  <tbody>
+  <tr>
+  <td>61</td>
+  <td>What is an AI Agent?</td>
+  <td><a href="https://vellum.ai/blog/beginners-guide-to-building-ai-agents" target="_blank" rel="noopener noreferrer">Vellum Beginner's Guide to AI Agents</a></td>
+  <td class="instruction-cell">Read the guide. Draw the Perceive→Plan→Act→Observe loop.</td>
+</tr><tr class="row-alt">
+  <td>62</td>
+  <td>Chatbot vs App vs Agent</td>
+  <td><a href="https://www.youtube.com/watch?v=C05XDMGaAn8" target="_blank" rel="noopener noreferrer">AI Agent Tutorial for Beginners 2026</a></td>
+  <td class="instruction-cell">Watch the full video. Write: "An agent is different because..."</td>
+</tr><tr>
+  <td>63</td>
+  <td>The Agent Loop</td>
+  <td><a href="https://agentgpt.reworkd.ai" target="_blank" rel="noopener noreferrer">AgentGPT — free tier</a></td>
+  <td class="instruction-cell">Experiment with AgentGPT. Give it a goal. Watch how it plans.</td>
+</tr><tr class="row-alt">
+  <td>64</td>
+  <td>Agent Design Patterns</td>
+  <td><a href="https://docs.n8n.io/advanced-ai" target="_blank" rel="noopener noreferrer">n8n Agent Docs</a></td>
+  <td class="instruction-cell">Read the docs intro. Sketch 1 agent design for your own app.</td>
+</tr><tr>
+  <td>65</td>
+  <td>n8n Setup + First Workflow</td>
+  <td><a href="https://n8n.io" target="_blank" rel="noopener noreferrer">Sign up: n8n.io (free cloud)</a></td>
+  <td class="instruction-cell">Create your n8n account. Complete the quickstart tutorial.</td>
+</tr><tr class="row-alt">
+  <td>66</td>
+  <td>Build Your First AI Agent in n8n</td>
+  <td><a href="https://www.youtube.com/watch?v=a8NA0WGI9OI" target="_blank" rel="noopener noreferrer">Watch: Build AI Agents with n8n</a></td>
+  <td class="instruction-cell">Follow the video step by step. Get one agent working.</td>
+</tr><tr>
+  <td>67</td>
+  <td>Adding Tools to Your Agent</td>
+  <td><a href="https://n8n.io/workflows" target="_blank" rel="noopener noreferrer">n8n template library</a></td>
+  <td class="instruction-cell">Browse templates. Add a web search tool to your agent.</td>
+</tr><tr class="row-alt">
+  <td>68</td>
+  <td>Testing &amp;amp; Debugging Agents</td>
+  <td><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer">n8n Docs</a></td>
+  <td class="instruction-cell">Break your agent intentionally. Fix it. Understand the error.</td>
+</tr><tr>
+  <td>69</td>
+  <td>RAG — Agents That Know Your Business</td>
+  <td><a href="https://blog.langchain.dev" target="_blank" rel="noopener noreferrer">RAG explained simply (LangChain Blog)</a></td>
+  <td class="instruction-cell">Read the explainer. Plan: what documents would YOUR agent need?</td>
+</tr><tr class="row-alt">
+  <td>70</td>
+  <td>Build a Simple RAG Agent</td>
+  <td><a href="https://n8n.io/workflows" target="_blank" rel="noopener noreferrer">n8n RAG template</a></td>
+  <td class="instruction-cell">Build a FAQ agent using a text file of your own Q&amp;As.</td>
+</tr><tr>
+  <td>71</td>
+  <td>Connecting Agents to Your App</td>
+  <td><a href="https://sdk.vercel.ai" target="_blank" rel="noopener noreferrer">Vercel AI SDK Docs</a></td>
+  <td class="instruction-cell">Read the Vercel AI SDK intro. Add a chat interface to your app.</td>
+</tr><tr class="row-alt">
+  <td>72</td>
+  <td>Memory + Context in Agents</td>
+  <td><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer">n8n Memory Nodes docs</a></td>
+  <td class="instruction-cell">Add memory to your n8n agent. Test multi-turn conversations.</td>
+</tr><tr>
+  <td>73</td>
+  <td>Multi-Step Agent Projects</td>
+  <td><a href="https://crewai.com" target="_blank" rel="noopener noreferrer">CrewAI — crewai.com</a></td>
+  <td class="instruction-cell">Explore CrewAI. Plan a 2-agent system for a real task.</td>
+</tr><tr class="row-alt">
+  <td>74</td>
+  <td>Polish + Real-World Testing</td>
+  <td>Your own agent</td>
+  <td class="instruction-cell">Run your agent on 20 real test cases. Fix every failure.</td>
+</tr><tr>
+  <td>75</td>
+  <td>Agent Showcase + Phase Review</td>
+  <td>Screen record your agent working</td>
+  <td class="instruction-cell">Record 2 min demo. Write 3-sentence summary. Share it.</td>
+</tr>
+  </tbody>
+</table>
+  </div>
+
+  <div class="practice-card">
+    <div class="practice-label">🛠 Practice Task</div>
+    <div class="practice-title">Mini-Project: Build a Simple Business Agent</div>
+    <p>Build an agent in n8n that solves a real business problem. Choose one: (A) Email monitoring agent — reads new Gmail messages, categorizes them, drafts replies. (B) Research agent — given a company name, searches the web and generates a 1-page summary. (C) FAQ agent — answers customer questions using your own uploaded document. Show it working to one person.</p>
+    <div class="practice-why"><strong>Why it matters:</strong> Agents are not the future — they're the present. Businesses are paying $500–$5,000/month for exactly these kinds of automations. After this project, you can build and sell them.</div>
+  </div>
+
+  <div class="quiz-container" id="quiz-phase5">
+  <div class="quiz-header">
+    <span class="quiz-label">🧠 Knowledge Check</span>
+    <span class="quiz-progress" id="quiz-phase5-progress">Question 1 of 10</span>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-phase5-bar" style="width:0%"></div></div>
+  <div id="quiz-phase5-body">
+    <!-- rendered by JS -->
+  </div>
+  <script>
+  (function(){
+    var questions = [{"question": "What is an AI agent?", "options": ["A chatbot that answers questions", "A self-directed system with a goal that plans steps, uses tools, checks results, and continues autonomously", "A database tool", "An AI image generator"], "correct_index": 1, "explanation": "An agent is autonomous. It has a goal, makes a plan, uses tools to act, checks results, and keeps going \u2014 without you controlling every step."}, {"question": "What is the key difference between a chatbot and an agent?", "options": ["Agents are smarter", "A chatbot responds to messages; an agent pursues goals and takes actions independently using tools", "Agents cost more", "Chatbots are newer"], "correct_index": 1, "explanation": "Chatbot = respond. Agent = act. A chatbot answers 'What's our return policy?' An agent processes the return, generates the label, emails it, and updates the database."}, {"question": "What does RAG stand for?", "options": ["Rapid App Generation", "Retrieval Augmented Generation \u2014 AI that searches your documents before answering", "Robot Automated Generator", "Real-time Agent Gateway"], "correct_index": 1, "explanation": "RAG = search then answer. Your agent searches your specific documents first, then uses that info to generate accurate answers. This is how you make an AI that knows YOUR business."}, {"question": "What is n8n?", "options": ["A database", "A visual workflow automation tool with 70+ AI nodes for building agents without coding", "A payment processor", "A code editor"], "correct_index": 1, "explanation": "n8n is like LEGO for automation. Connect blocks visually. No code needed. 70+ AI nodes including a built-in AI Agent node that connects to OpenAI, Anthropic, and more."}, {"question": "What are 'tools' in an AI agent?", "options": ["The agent's personality", "Capabilities the agent can use to take actions \u2014 like web search, email, database read/write, or API calls", "The agent's memory", "The agent's UI"], "correct_index": 1, "explanation": "Tools are what give agents superpowers. Without tools, an agent can only talk. With tools (search, email, calendar, database), it can actually do things in the world."}, {"question": "What is the 'agent loop'?", "options": ["A bug in the code", "The repeating cycle of Perceive \u2192 Reason \u2192 Act \u2192 Observe \u2192 Repeat that all agents follow", "A type of database", "A UI pattern"], "correct_index": 1, "explanation": "Every agent runs this loop over and over. It perceives input, reasons about what to do, acts using a tool, observes the result, and repeats until the goal is met."}, {"question": "What is a 'webhook trigger' in n8n?", "options": ["A bug alert", "An event that starts your agent workflow \u2014 like receiving a message, form submission, or API call", "A payment method", "A CSS property"], "correct_index": 1, "explanation": "A webhook is a signal that starts your workflow. When something happens (email received, form submitted, button clicked), it triggers your agent to start working."}, {"question": "Why are clear tool descriptions important for agents?", "options": ["They look better in the interface", "The agent reads descriptions to decide WHICH tool to use \u2014 bad description = wrong tool used", "They improve speed", "They reduce costs"], "correct_index": 1, "explanation": "The agent reads each tool's description to decide when to use it. Write specific descriptions: 'Use this tool when the user asks about pricing' gets much better results than 'pricing tool'."}, {"question": "What is a 'human in the loop'?", "options": ["A manual data entry job", "A design where the agent pauses and asks a human to approve before taking important or irreversible actions", "A bug in multi-agent systems", "An AI training technique"], "correct_index": 1, "explanation": "Human in the loop = safety. For high-stakes actions (sending emails, making purchases, deleting data), the agent pauses and asks you to confirm. Essential for reliable production agents."}, {"question": "What kind of business problem is an agent best suited for?", "options": ["Designing logos", "Multi-step repetitive tasks that involve checking data, making decisions, and taking actions \u2014 like processing orders or answering support tickets", "Writing one email", "Creating a one-page website"], "correct_index": 1, "explanation": "Agents shine at multi-step, repetitive, decision-heavy tasks. If a human would follow the same 5-step process every time \u2014 an agent can do it faster, cheaper, and 24/7."}];
+    var qid = "quiz-phase5";
+    var current = 0;
+    var score = 0;
+    var missed = [];
+    var answered = false;
+
+    function renderQ(idx) {
+      answered = false;
+      var q = questions[idx];
+      var total = questions.length;
+      document.getElementById(qid+'-progress').textContent = 'Question '+(idx+1)+' of '+total;
+      document.getElementById(qid+'-bar').style.width = (idx/total*100)+'%';
+      var html = '<div class="quiz-question">'+escH(q.question)+'</div>';
+      html += '<div class="quiz-options">';
+      for(var i=0;i<q.options.length;i++){
+        html += '<button class="quiz-opt" onclick="quizAnswer_'+qid+'(this,'+i+')" data-idx="'+i+'">'+escH(q.options[i])+'</button>';
+      }
+      html += '</div>';
+      html += '<div class="quiz-explanation" id="'+qid+'-exp" style="display:none"></div>';
+      html += '<div class="quiz-next-row" id="'+qid+'-next" style="display:none"><button class="quiz-next-btn" onclick="quizNext_'+qid+'()">Next Question →</button></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+    }
+
+    function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+    window['quizAnswer_'+qid] = function(btn, idx){
+      if(answered) return;
+      answered = true;
+      var q = questions[current];
+      var opts = document.querySelectorAll('#'+qid+' .quiz-opt');
+      opts.forEach(function(o){ o.disabled = true; });
+      if(idx === q.correct_index){
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        opts[q.correct_index].classList.add('correct');
+        missed.push(current);
+      }
+      var exp = document.getElementById(qid+'-exp');
+      exp.textContent = q.explanation;
+      exp.style.display = 'block';
+      var nextRow = document.getElementById(qid+'-next');
+      if(current < questions.length-1){
+        nextRow.style.display = 'block';
+      } else {
+        nextRow.innerHTML = '<button class="quiz-next-btn" onclick="quizFinish_'+qid+'()">See Results 🎉</button>';
+        nextRow.style.display = 'block';
+      }
+    };
+
+    window['quizNext_'+qid] = function(){
+      current++;
+      renderQ(current);
+    };
+
+    window['quizFinish_'+qid] = function(){
+      var total = questions.length;
+      var pct = Math.round(score/total*100);
+      var stars = pct>=90?'🌟🌟🌟':pct>=70?'⭐⭐':'⭐';
+      var html = '<div class="quiz-result">';
+      html += '<div class="quiz-score">'+stars+' '+score+'/'+total+' ('+pct+'%)</div>';
+      if(pct===100){html += '<div class="quiz-msg">Perfect score! You nailed it.</div>';}
+      else if(pct>=70){html += '<div class="quiz-msg">Good work! Review the ones you missed.</div>';}
+      else{html += '<div class="quiz-msg">Keep studying &#8212; you&#x27;ve got this!</div>';}
+      html += '<div class="quiz-result-btns">';
+      html += '<button class="quiz-retake-btn" onclick="quizRetake_'+qid+'()">↩ Retake Quiz</button>';
+      if(missed.length>0){html += '<button class="quiz-review-btn" onclick="quizReview_'+qid+'()">Review Missed ('+missed.length+')</button>';}
+      html += '</div></div>';
+      document.getElementById(qid+'-body').innerHTML = html;
+      document.getElementById(qid+'-progress').textContent = 'Complete!';
+      document.getElementById(qid+'-bar').style.width = '100%';
+    };
+
+    window['quizRetake_'+qid] = function(){
+      current = 0; score = 0; missed = [];
+      renderQ(0);
+    };
+
+    window['quizReview_'+qid] = function(){
+      current = missed[0];
+      missed = missed.slice(1);
+      score = 0;
+      renderQ(current);
+    };
+
+    renderQ(0);
+  })();
+  </script>
+</div>
+
+</section>
+
+
+    <section id="after" class="section section-alt">
+  <div class="section-header">
+    <div class="section-number after-trophy">🏆 Finish Line</div>
+    <h2>After This Course: What You Can Actually Do</h2>
+    <p>You are now a beginner AI app builder with agent awareness. You are not a senior engineer — and you don't need to be. You can build real products that solve real problems and charge real money for them.</p>
+  </div>
+
+  <div class="after-grid">
+    <div class="after-col">
+      <div class="after-col-title">🚀 What You Can Build Now</div>
+      <ul class="after-list"><li>AI-powered SaaS tools for small businesses (review responders, proposal generators, FAQ bots)</li><li>Subscription portals with user login, database, and recurring payments</li><li>Full-stack web apps with Next.js, Supabase, Stripe, and OpenAI</li><li>Simple AI agents that automate multi-step business workflows</li><li>RAG systems that answer questions based on your own documents</li><li>Bilingual tools for US and Chinese markets using your language advantage</li><li>Client-facing apps you can sell or license to local businesses</li><li>Automation pipelines in n8n that connect 500+ apps without coding</li></ul>
+    </div>
+    <div class="after-col">
+      <div class="after-col-title">🔄 How to Keep Practicing</div>
+      <ul class="after-list"><li>Build one small app every week — even if it's imperfect</li><li>Take real feedback from real users and ship Version 2</li><li>Study one successful micro-SaaS per week on IndieHackers.com</li><li>Add one new AI feature to your existing apps each month</li><li>Experiment with new agent tools as they release — this space moves fast</li></ul>
+    </div>
+  </div>
+
+  <div class="section-subheader">Your Next Steps</div>
+  <div class="next-steps-grid">
+    <div class="next-step-card">
+  <div class="next-step-title">Go Deeper on Code</div>
+  <p>Take CS50 (Harvard's free intro to CS) or The Odin Project to understand what's happening under the hood. You'll build faster and debug quicker.</p>
+</div><div class="next-step-card">
+  <div class="next-step-title">Advanced Agents</div>
+  <p>Explore LangChain, LangGraph, and CrewAI for more complex multi-agent systems. These are used in production by real companies.</p>
+</div><div class="next-step-card">
+  <div class="next-step-title">Specialize in a Niche</div>
+  <p>Pick one industry (real estate, healthcare, e-commerce, restaurants) and become the go-to AI app builder for that space. Specialists earn more and get hired faster.</p>
+</div><div class="next-step-card">
+  <div class="next-step-title">Start Charging</div>
+  <p>You have enough skills to charge for work. Start with $500–$1,000 for a simple automation or tool. Build your portfolio with 3 real clients before raising prices.</p>
+</div><div class="next-step-card">
+  <div class="next-step-title">Bilingual Market Advantage</div>
+  <p>Use your English + Mandarin ability to build and sell tools in both US and Chinese markets. Very few people have this combination with technical skills.</p>
+</div>
+  </div>
+
+  <div class="closing-quote">
+    <div class="closing-quote-inner">
+      60 days ago, you didn't know what HTML was. Today you can build an AI-powered app with real users, real payments, and real agent features. Most people who start learning to code never finish. You did. Now build something the world needs.
+    </div>
+  </div>
+</section>
+
+    <section id="elite" class="section section-alt">
+  <div class="section-header">
+    <div class="section-number">Beyond the Basics</div>
+    <h2>&#129504; Elite Skills — After Day 60</h2>
+    <p>Once you've shipped your first real app, these 5 skills separate good builders from great ones.</p>
+  </div>
+
+  <div class="elite-detail-cards">
+    <div class="elite-detail-card">
+      <div class="edc-header">
+        <div class="edc-num">1</div>
+        <div class="edc-header-text">
+          <h3>Systems Thinking</h3>
+          <div class="edc-timeline">Learn after Month 3</div>
+        </div>
+      </div>
+      <div class="edc-body">
+        <div class="edc-why-label">Why it matters</div>
+        <p>Systems thinking means seeing how all the pieces of your app — and your business — fit together and affect each other. When you understand the system, you make better decisions and spot problems before they become crises. Most solo founders fail because they optimize one piece while breaking three others.</p>
+        <p><strong>Resource:</strong> <a href="https://www.amazon.com/Thinking-Systems-Donella-H-Meadows/dp/1603580557" target="_blank" rel="noopener noreferrer">Thinking in Systems by Donella Meadows</a> — read just the first 80 pages. Life-changing for product builders.</p>
+      </div>
+    </div>
+
+    <div class="elite-detail-card">
+      <div class="edc-header">
+        <div class="edc-num">2</div>
+        <div class="edc-header-text">
+          <h3>Context Engineering</h3>
+          <div class="edc-timeline">Learn from Day 1 — practice daily</div>
+        </div>
+      </div>
+      <div class="edc-body">
+        <div class="edc-why-label">Why it matters</div>
+        <p>Context engineering is the skill of giving AI tools exactly the right information to get great outputs. Bad prompt: "Fix my code." Good prompt: "I'm building a Next.js 14 app with Supabase auth. Here's the error I get when a user logs in: [error]. Here's my current auth config: [code]. What's wrong and how do I fix it?" The same AI gives wildly different results depending on how much context you give it.</p>
+        <p><strong>Resource:</strong> <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer">Prompting Guide — promptingguide.ai</a> — free, comprehensive, and updated regularly.</p>
+      </div>
+    </div>
+
+    <div class="elite-detail-card">
+      <div class="edc-header">
+        <div class="edc-num">3</div>
+        <div class="edc-header-text">
+          <h3>Product Judgment</h3>
+          <div class="edc-timeline">Develops naturally — accelerate with deliberate practice</div>
+        </div>
+      </div>
+      <div class="edc-body">
+        <div class="edc-why-label">Why it matters</div>
+        <p>Product judgment is knowing which features to build and which to ignore. Every user requests something. Every idea sounds good in your head. Product judgment is the filter that separates features that drive revenue from features that waste months of work. It's built through user conversations, data analysis, and studying products you admire.</p>
+        <p><strong>Resource:</strong> <a href="https://www.lenny.com/podcast" target="_blank" rel="noopener noreferrer">Lenny's Podcast</a> — listen while commuting. Lenny interviews the best product people in tech, and every episode teaches something applicable to solo founders.</p>
+      </div>
+    </div>
+
+    <div class="elite-detail-card">
+      <div class="edc-header">
+        <div class="edc-num">4</div>
+        <div class="edc-header-text">
+          <h3>Security &amp; AI Governance</h3>
+          <div class="edc-timeline">Learn by Month 4 — before you hit 100 users</div>
+        </div>
+      </div>
+      <div class="edc-body">
+        <div class="edc-why-label">Why it matters</div>
+        <p>Security basics are non-negotiable the moment you handle real user data or payments. This isn't about becoming a security expert — it's about the 5 critical things that prevent the most common attacks. AI governance matters when your app makes decisions that affect users: you need to understand what your AI can and cannot do, and how to be transparent about it.</p>
+        <p><strong>Resource:</strong> <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer">OWASP Top 10 — owasp.org</a> — the 10 most critical web security risks. Free, written for developers, and the industry standard reference.</p>
+      </div>
+    </div>
+
+    <div class="elite-detail-card">
+      <div class="edc-header">
+        <div class="edc-num">5</div>
+        <div class="edc-header-text">
+          <h3>Bilingual Market Access</h3>
+          <div class="edc-timeline">Your unique competitive advantage — use it from Day 1</div>
+        </div>
+      </div>
+      <div class="edc-body">
+        <div class="edc-why-label">Why it matters</div>
+        <p>You speak Mandarin and understand Chinese business culture. This is an extraordinary competitive advantage that most Western developers simply don't have. The 1.2 million Chinese Australians represent a massive underserved market. Western SaaS products often don't understand their needs. You do. Every app you build should consider: can I serve this community specifically, and charge them for a product that truly fits their needs?</p>
+        <p><strong>Resource:</strong> <a href="https://www.abs.gov.au/statistics/people/people-and-communities/cultural-diversity-australia/2021" target="_blank" rel="noopener noreferrer">ABS Cultural Diversity Data</a> — understand the size and distribution of your target market in Australia. Use this for investor pitches, grant applications, and product decisions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="tools" class="section">
+  <div class="section-header">
+    <div class="section-number">Your Toolkit</div>
+    <h2>&#128736;&#65039; Tools &amp; Resources</h2>
+    <p>Every tool you'll use in this curriculum — what it does, whether it's free, and where to get it.</p>
+  </div>
+
+  <div class="tools-section-title">AI App Builders</div>
+  <div style="overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)">
+  <table class="tools-table">
+    <thead><tr><th>Tool</th><th>What It Does</th><th>Free?</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Base44</strong></td><td>Describe your app in plain English — AI builds the full app</td><td><span class="free-badge partial">Free tier</span></td><td><a href="https://base44.com" target="_blank">base44.com</a></td></tr>
+      <tr><td><strong>Lovable.dev</strong></td><td>AI app builder with Supabase + Stripe integration for production apps</td><td><span class="free-badge partial">Free tier</span></td><td><a href="https://lovable.dev" target="_blank">lovable.dev</a></td></tr>
+      <tr><td><strong>Cursor</strong></td><td>AI-powered code editor — describe changes, AI writes the code</td><td><span class="free-badge partial">Free tier</span></td><td><a href="https://cursor.com" target="_blank">cursor.com</a></td></tr>
+      <tr><td><strong>Claude</strong></td><td>AI assistant — best for writing PRDs, explaining errors, writing copy</td><td><span class="free-badge partial">Free tier</span></td><td><a href="https://claude.ai" target="_blank">claude.ai</a></td></tr>
+      <tr><td><strong>ChatGPT</strong></td><td>AI assistant — debugging, explanation, brainstorming</td><td><span class="free-badge partial">Free tier</span></td><td><a href="https://chat.openai.com" target="_blank">chat.openai.com</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="tools-section-title">Infrastructure</div>
+  <div style="overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)">
+  <table class="tools-table">
+    <thead><tr><th>Tool</th><th>What It Does</th><th>Free?</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Supabase</strong></td><td>Database + user authentication for your app's backend</td><td><span class="free-badge yes">Free</span></td><td><a href="https://supabase.com" target="_blank">supabase.com</a></td></tr>
+      <tr><td><strong>Vercel</strong></td><td>Deploy and host your web apps — auto-deploys from GitHub</td><td><span class="free-badge yes">Free</span></td><td><a href="https://vercel.com" target="_blank">vercel.com</a></td></tr>
+      <tr><td><strong>Stripe</strong></td><td>Accept credit card payments and subscriptions in your app</td><td><span class="free-badge partial">Free + 2.9% fee</span></td><td><a href="https://stripe.com" target="_blank">stripe.com</a></td></tr>
+      <tr><td><strong>GitHub</strong></td><td>Store and back up your code in the cloud</td><td><span class="free-badge yes">Free</span></td><td><a href="https://github.com" target="_blank">github.com</a></td></tr>
+      <tr><td><strong>Resend</strong></td><td>Send automated emails from your app (welcome emails, receipts)</td><td><span class="free-badge partial">Free tier</span></td><td><a href="https://resend.com" target="_blank">resend.com</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="tools-section-title">Learning Resources</div>
+  <div style="overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)">
+  <table class="tools-table">
+    <thead><tr><th>Resource</th><th>What It Covers</th><th>Free?</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td><strong>freeCodeCamp</strong></td><td>HTML, CSS, JavaScript — structured beginner curriculum</td><td><span class="free-badge yes">Free</span></td><td><a href="https://freecodecamp.org" target="_blank">freecodecamp.org</a></td></tr>
+      <tr><td><strong>Next.js Learn</strong></td><td>Official Next.js tutorial — the best React/Next learning resource</td><td><span class="free-badge yes">Free</span></td><td><a href="https://nextjs.org/learn" target="_blank">nextjs.org/learn</a></td></tr>
+      <tr><td><strong>Khan Academy</strong></td><td>How the internet works — perfect starting point</td><td><span class="free-badge yes">Free</span></td><td><a href="https://khanacademy.org" target="_blank">khanacademy.org</a></td></tr>
+      <tr><td><strong>OpenAI Docs</strong></td><td>How to use the OpenAI API in your apps</td><td><span class="free-badge yes">Free</span></td><td><a href="https://platform.openai.com/docs" target="_blank">platform.openai.com/docs</a></td></tr>
+      <tr><td><strong>Product Hunt</strong></td><td>Launch platform — where builders share new products</td><td><span class="free-badge yes">Free</span></td><td><a href="https://producthunt.com" target="_blank">producthunt.com</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+    <section id="cost" class="section section-alt">
+  <div class="section-header">
+    <div class="section-number">Budget</div>
+    <h2>&#128176; Monthly Cost Breakdown</h2>
+    <p>Honest estimate for running a real app with real users. Most tools are free until you have paying customers.</p>
+  </div>
+
+  <div style="overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)">
+  <table class="cost-table">
+    <thead><tr><th>Tool</th><th>What You Pay For</th><th>Monthly Cost</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Cursor</td><td>Pro plan — unlimited AI suggestions</td><td class="cost-amount">$20</td><td>Free tier works for Phase 1–2</td></tr>
+      <tr><td>Supabase</td><td>Pro plan — once you exceed free tier</td><td class="cost-amount">$25</td><td>Free for first project</td></tr>
+      <tr><td>Vercel</td><td>Pro plan — custom domains + more bandwidth</td><td class="cost-amount">$20</td><td>Free tier is fine for early apps</td></tr>
+      <tr><td>OpenAI API</td><td>API calls for AI features in your apps</td><td class="cost-amount">$5–15</td><td>Pay-per-use, very cheap to start</td></tr>
+      <tr><td>Domain name</td><td>yourapp.com — 1 year</td><td class="cost-amount">$1</td><td>~$12/year = $1/month</td></tr>
+      <tr><td>Resend</td><td>Email sending (after free tier)</td><td class="cost-amount">$0–20</td><td>Free for first 3,000 emails/month</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>Full professional setup</strong></td><td class="cost-amount"><strong>~$80–95/mo</strong></td><td><strong>Free in Phase 1–2 using free tiers</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="warning-box" style="margin-top:24px">
+    <div class="warning-label">&#128161; The Key Insight About Cost</div>
+    <p>You should be earning more than $80–95/month from your app well before you need to pay for these tools. The free tiers of Supabase, Vercel, and Cursor are generous enough for Phases 1–3. Only upgrade when you have real users. One paying customer at $29/month covers half your costs.</p>
+  </div>
+</section>
+
+    <section id="rules" class="section">
+  <div class="section-header">
+    <div class="section-number">Philosophy</div>
+    <h2>&#128203; The 3 Rules</h2>
+    <p>If you follow nothing else from this curriculum, follow these three rules. They explain why most self-taught builders succeed — and why some don't.</p>
+  </div>
+
+  <div class="rules-container">
+    <div class="rule-card">
+      <div class="rule-num">1</div>
+      <div class="rule-label">Rule One</div>
+      <h3>Ship Ugly.</h3>
+      <p>Your first version will look bad. That's correct. Every successful app looked bad at version 1. The goal of every day is not to make it perfect — it's to make it exist. An ugly live app is infinitely more valuable than a beautiful app that's still "in progress."</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">2</div>
+      <div class="rule-label">Rule Two</div>
+      <h3>Learn by Breaking.</h3>
+      <p>The fastest way to understand something is to break it on purpose and then fix it. Change a number and see what happens. Delete a line and see what breaks. Add something random and see where it appears. Curiosity about breakage builds intuition faster than any tutorial.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">3</div>
+      <div class="rule-label">Rule Three</div>
+      <h3>Document Every Day.</h3>
+      <p>Keep a simple daily log: "Day 12 — built the Stripe integration, got stuck on webhooks, fixed it by X." This log becomes your portfolio, your memory of what works, and your proof of progress on hard days. Future You will be grateful.</p>
+    </div>
+  </div>
+</section>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var map = {
+    "phase1-audio": "audio/phase1.mp3",
+    "phase2-audio": "audio/phase2.mp3",
+    "phase3-audio": "audio/phase3.mp3",
+    "phase4-audio": "audio/phase4.mp3",
+    "phase5-audio": "audio/phase5.mp3"
+  };
+  Object.entries(map).forEach(function([id, src]) {
+    var el = document.getElementById(id);
+    if (el) { el.src = src; el.load(); }
+  });
+});
+</script>
+
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>

@@ -729,7 +729,142 @@
       .hero h1 { font-size: 1.75rem; }
       .quiz-result-btns { flex-direction: column; align-items: center; }
     }
-  </style>
+  
+/* ── Tools Table ── */
+.tools-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--teal);
+}
+.tools-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: var(--white);
+}
+.tools-table th {
+  background: var(--navy);
+  color: white;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.tools-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.tools-table tr:last-child td { border-bottom: none; }
+.tools-table tr:nth-child(even) td { background: #f9f8f5; }
+.tools-table a { color: var(--teal); font-weight: 600; text-decoration: none; }
+.tools-table a:hover { text-decoration: underline; }
+.free-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.free-badge.yes { background: #e8f5e9; color: #2e7d32; }
+.free-badge.partial { background: #fff8e1; color: #f57f17; }
+.free-badge.no { background: #fce4ec; color: #c62828; }
+
+/* ── Elite Detail Cards ── */
+.elite-detail-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.elite-detail-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.edc-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--navy);
+  color: white;
+}
+.edc-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.edc-header-text h3 { margin: 0; font-size: 16px; color: white; }
+.edc-timeline { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+.edc-body { padding: 1.25rem; }
+.edc-why-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+.edc-body p { font-size: 14px; line-height: 1.6; color: var(--text); margin: 0 0 0.75rem; }
+.edc-body a { color: var(--teal); font-weight: 600; }
+@media (max-width: 900px) {
+  .elite-detail-cards { grid-template-columns: 1fr; }
+  .tools-table { font-size: 13px; }
+  .tools-table th, .tools-table td { padding: 8px 10px; }
+}
+
+/* ── Instruction cells ── */
+.instruction-cell {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  min-width: 220px;
+}
+.instruction-cell a {
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: none;
+}
+.instruction-cell a:hover { text-decoration: underline; }
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.steps { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.steps li { display: flex; align-items: flex-start; gap: 6px; font-size: 13px; line-height: 1.5; }
+
+</style>
 </head>
 <body>
 
@@ -934,43 +1069,85 @@
   <td>How the Web Works</td>
   <td><a href="https://www.khanacademy.org/computing/computers-and-the-internet" target="_blank" rel="noopener noreferrer">Khan Academy — How the Internet Works</a></td>
   <td>Diagram: browser → server → database → back</td>
-  <td class="instruction-cell">Open Khan Academy (click the link). Watch the intro video. Then draw a simple diagram on paper showing: Browser → Server → Website. Keep it simple — just boxes and arrows.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.khanacademy.org/computing/computers-and-the-internet/internet-works-intro/v/what-is-the-internet" target="_blank">Click here → Khan Academy: What is the Internet?</a> Watch the 3-minute video.</li>
+  <li><span class="step-num">2</span> On paper, draw 3 boxes: "Browser" → "Server" → "Your Screen." Add arrows between them. Label each arrow.</li>
+  <li><span class="step-num">3</span> Read the next 2 articles in the Khan Academy series. They take about 15 minutes total.</li>
+</ol>
+</td>
 </tr><tr>
   <td>2</td>
   <td>HTML Basics</td>
   <td><a href="https://www.youtube.com/watch?v=UB1O30fR-EE" target="_blank" rel="noopener noreferrer">HTML Crash Course — Traversy Media</a></td>
   <td>Simple webpage about your pet care business</td>
-  <td class="instruction-cell">Watch the HTML video first (click the link above). Then open freecodecamp.org and start the HTML section. Your goal: complete at least 10 small exercises. Don&#x27;t rush — slow and steady wins.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=UB1O30fR-EE" target="_blank">Click here → Watch HTML Crash Course by Traversy Media (1 hr)</a> Follow along in VS Code.</li>
+  <li><span class="step-num">2</span> <a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/#learn-html-by-building-a-cat-photo-app" target="_blank">Click here → freeCodeCamp: Learn HTML by Building a Cat Photo App</a> Complete all 69 steps. This is your HTML foundation.</li>
+  <li><span class="step-num">3</span> Save your work. Open the HTML file in your browser and confirm it shows correctly.</li>
+</ol>
+</td>
 </tr><tr>
   <td>3</td>
   <td>CSS Basics</td>
   <td><a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" target="_blank" rel="noopener noreferrer">freeCodeCamp Responsive Web Design</a></td>
   <td>Styled, beautiful webpage</td>
-  <td class="instruction-cell">Go to the freeCodeCamp link. Start the Responsive Web Design module. Change colors, fonts, and spacing on your Day 2 webpage. It&#x27;s okay if it looks messy — you&#x27;re learning!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=yfoY53QXEnI" target="_blank">Click here → CSS Crash Course by Traversy Media (1.5 hrs)</a> Watch and code along.</li>
+  <li><span class="step-num">2</span> <a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/#learn-basic-css-by-building-a-cafe-menu" target="_blank">Click here → freeCodeCamp: Learn CSS by Building a Cafe Menu</a> Complete all steps.</li>
+  <li><span class="step-num">3</span> Add colors, a font, and spacing to your Day 2 webpage using CSS.</li>
+</ol>
+</td>
 </tr><tr>
   <td>4</td>
   <td>JavaScript Part 1</td>
   <td><a href="https://www.youtube.com/watch?v=hdI2bqOjy3c" target="_blank" rel="noopener noreferrer">JavaScript Crash Course — Traversy Media</a></td>
   <td>JS variables, functions, events practice</td>
-  <td class="instruction-cell">Watch the JavaScript crash course (it&#x27;s 1.7 hours — take breaks!). In VS Code, create a new file called &#x27;practice.js&#x27; and type out the examples as you watch. Don&#x27;t just watch — type everything.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=hdI2bqOjy3c" target="_blank">Click here → JavaScript Crash Course by Traversy Media (1.7 hrs)</a> Take breaks — it is long.</li>
+  <li><span class="step-num">2</span> <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/#basic-javascript" target="_blank">Click here → freeCodeCamp: Basic JavaScript</a> Complete the first 20 exercises.</li>
+  <li><span class="step-num">3</span> In VS Code, create a file called practice.js and type out 5 of the exercises by hand — not copy/paste.</li>
+</ol>
+</td>
 </tr><tr>
   <td>5</td>
   <td>JavaScript Part 2</td>
   <td><a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" rel="noopener noreferrer">freeCodeCamp JavaScript Algorithms</a></td>
   <td>Contact form with thank-you message</td>
-  <td class="instruction-cell">Continue with freeCodeCamp&#x27;s JavaScript section. Today&#x27;s project: add a contact form to your webpage that shows a &#x27;Thank you!&#x27; message when someone clicks Submit. Ask AI to help if you get stuck.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/#basic-javascript" target="_blank">Click here → freeCodeCamp: Basic JavaScript</a> Complete 20 more exercises (exercises 21–40).</li>
+  <li><span class="step-num">2</span> Add a button to your webpage from Day 2. When clicked, it shows a "Thank you!" message using JavaScript.</li>
+  <li><span class="step-num">3</span> Ask Claude at <a href="https://claude.ai" target="_blank">claude.ai</a> to explain any exercise you found confusing.</li>
+</ol>
+</td>
 </tr><tr>
   <td>6</td>
   <td>Git + GitHub</td>
   <td><a href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank" rel="noopener noreferrer">Git &amp; GitHub Crash Course — freeCodeCamp</a></td>
   <td>GitHub account + first repo live</td>
-  <td class="instruction-cell">First: go to github.com and create a free account. Then watch the Git video. After watching, push your HTML/CSS files to a new GitHub repository. Don&#x27;t worry if it&#x27;s confusing — you&#x27;ll use it every day and it gets easy fast.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://github.com/signup" target="_blank">Click here → Create your free GitHub account</a> Use your real name. This is your portfolio.</li>
+  <li><span class="step-num">2</span> <a href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank">Click here → Git &amp; GitHub Crash Course by freeCodeCamp (1 hr)</a> Watch the full video.</li>
+  <li><span class="step-num">3</span> Follow the video to push your HTML/CSS files to a new GitHub repository. Name it "my-first-webpage".</li>
+</ol>
+</td>
 </tr><tr>
   <td>7</td>
   <td>First Vibe Coding Taste</td>
   <td><a href="https://www.youtube.com/watch?v=FN9fyZ9IPWs" target="_blank" rel="noopener noreferrer">Base44 Tutorial for Beginners 2026</a></td>
   <td>First app live on Base44</td>
-  <td class="instruction-cell">Watch the Base44 tutorial, then go to base44.com and sign up. Type in plain English what you want to build (example: &#x27;A simple to-do list app&#x27;). Watch the AI build it. Feel the magic!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://base44.com" target="_blank">Click here → Go to Base44.com and create a free account</a></li>
+  <li><span class="step-num">2</span> In the prompt box, type exactly: "A simple appointment booking form for a house cleaning business. Customers enter name, email, phone, and preferred date." Click Generate.</li>
+  <li><span class="step-num">3</span> Click "Publish" or "Deploy." Copy your live URL and share it with one person — this is your first real app.</li>
+</ol>
+</td>
 </tr></tbody>
       </table>
   </div>
@@ -1170,85 +1347,169 @@
   <td>Base44 App 1</td>
   <td><a href="https://base44.com" target="_blank" rel="noopener noreferrer">Base44 — base44.com</a></td>
   <td>Booking app for a cleaning business</td>
-  <td class="instruction-cell">Log into base44.com. Describe your first real app in plain English: &#x27;Build a booking system for a house cleaning business. Customers can pick a date and time, enter their address, and submit.&#x27; Watch it build the app.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://base44.com" target="_blank">Log into Base44.com</a></li>
+  <li><span class="step-num">2</span> Create App #1 — type this prompt: "A booking system for a house cleaning business. Customers pick a date, enter contact info, and choose a service (basic, deep clean, move-out). Owner can see all bookings." Click Generate.</li>
+  <li><span class="step-num">3</span> Publish it. Copy the live URL. You now have a real booking system online.</li>
+</ol>
+</td>
 </tr><tr>
   <td>9</td>
   <td>Base44 + Stripe</td>
   <td><a href="https://www.youtube.com/watch?v=M_JBV-ly3wg" target="_blank" rel="noopener noreferrer">Base44 Step-by-Step Guide</a></td>
   <td>Base44 app with payment link</td>
-  <td class="instruction-cell">In your Base44 app, ask it to &#x27;Add a Stripe payment button so customers can pay $50 for a booking.&#x27; Get a Stripe account at stripe.com (free). Test with card: 4242 4242 4242 4242, any future date, any CVV.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://base44.com" target="_blank">Log into Base44.com</a> and start a new app.</li>
+  <li><span class="step-num">2</span> Create App #2 — prompt: "A membership portal for a local gym. Members can sign up, see their membership status, and book fitness classes. Admin can manage members."</li>
+  <li><span class="step-num">3</span> <a href="https://stripe.com/register" target="_blank">Create a free Stripe account</a> — you will connect it in the next step. Verify your email.</li>
+</ol>
+</td>
 </tr><tr>
   <td>10</td>
   <td>Base44 Directory App</td>
   <td><a href="https://base44.com" target="_blank" rel="noopener noreferrer">Base44 Dashboard + Tutorial</a></td>
   <td>Local business directory app</td>
-  <td class="instruction-cell">Build a directory app in Base44. Prompt: &#x27;Create a directory of local Chinese restaurants in Melbourne. Users can browse listings, view details, and submit a new restaurant.&#x27; Share the link with 3 friends.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://base44.com" target="_blank">Log into Base44.com</a> and start a new app.</li>
+  <li><span class="step-num">2</span> Create App #3 — prompt: "A local business directory for Mission Viejo, California. Users can browse and filter businesses by category (restaurant, cleaning, auto repair). Each listing has name, description, phone, and address."</li>
+  <li><span class="step-num">3</span> Publish all 3 apps. You now have 3 live apps. Screenshot them — this is your portfolio so far.</li>
+</ol>
+</td>
 </tr><tr>
   <td>11</td>
   <td>Lovable Intro</td>
   <td><a href="https://www.productcompass.pm/p/full-stack-app-with-lovable" target="_blank" rel="noopener noreferrer">Full-Stack App with Lovable — Product Compass</a></td>
   <td>First Lovable app created</td>
-  <td class="instruction-cell">Sign up at lovable.dev (free plan). Read the Product Compass guide linked here. Then create your first Lovable app. Describe a simple SaaS idea you have. Let Lovable build the first version.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://lovable.dev" target="_blank">Click here → Go to Lovable.dev and create a free account</a></li>
+  <li><span class="step-num">2</span> <a href="https://supabase.com" target="_blank">Click here → Create a free Supabase account</a> — this is your database. Verify your email.</li>
+  <li><span class="step-num">3</span> In Lovable, start a new project and describe your app idea in 2–3 sentences. Click Generate and watch it build.</li>
+</ol>
+</td>
 </tr><tr>
   <td>12</td>
   <td>Lovable + Supabase</td>
   <td><a href="https://www.youtube.com/watch?v=pdMT4Efanfg" target="_blank" rel="noopener noreferrer">Lovable + Supabase Full Stack Tutorial</a></td>
   <td>App with working user login</td>
-  <td class="instruction-cell">Watch the Lovable + Supabase tutorial. Then connect your Lovable app to Supabase (the video shows exactly how). Test that users can sign up and log in. This is the real deal — your app now has a real database!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=pdMT4Efanfg" target="_blank">Click here → Watch: Full Stack App with Lovable + Supabase</a> Follow along step by step.</li>
+  <li><span class="step-num">2</span> In Lovable, connect your Supabase project using the integration panel (the video shows exactly where to click).</li>
+  <li><span class="step-num">3</span> Test user sign-up: create a test account in your app. Check your Supabase dashboard — the user should appear there.</li>
+</ol>
+</td>
 </tr><tr>
   <td>13</td>
   <td>Lovable + Stripe</td>
   <td><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable docs — lovable.dev</a></td>
   <td>App that accepts test payments</td>
-  <td class="instruction-cell">In your Lovable app, go to the integrations panel and add Stripe. Create a simple pricing page with one plan ($9.99/month). Test it using Stripe&#x27;s test card: 4242 4242 4242 4242. Confirm the payment shows in your Stripe dashboard.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://stripe.com/register" target="_blank">Log into Stripe dashboard (or create account)</a> — go to Developers → API Keys. Copy your test publishable key.</li>
+  <li><span class="step-num">2</span> In Lovable, add Stripe to your app using the integrations panel. Create one pricing plan: $29/month.</li>
+  <li><span class="step-num">3</span> Test payment with card <strong>4242 4242 4242 4242</strong>, any future date, any 3-digit CVV. Check Stripe dashboard to confirm it shows as successful.</li>
+</ol>
+</td>
 </tr><tr>
   <td>14</td>
   <td>Lovable Deploy</td>
   <td><a href="https://docs.lovable.dev" target="_blank" rel="noopener noreferrer">Lovable deploy guide</a></td>
   <td>App deployed with custom URL</td>
-  <td class="instruction-cell">Follow the Lovable deploy guide to publish your app. You&#x27;ll get a URL like yourapp.lovable.app. Share this URL with friends and family. Ask 2 people to try using it and tell you what&#x27;s confusing.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> In Lovable, click "Deploy" or "Publish." Your app gets a live URL (like yourapp.lovable.app).</li>
+  <li><span class="step-num">2</span> Share the URL with 2 people. Ask them: "What's confusing? What's missing? Would you pay for this?" Write down every answer.</li>
+  <li><span class="step-num">3</span> <a href="https://claude.ai" target="_blank">Ask Claude</a>: "Here are 2 pieces of feedback from my app users: [paste their feedback]. What should I fix first?"</li>
+</ol>
+</td>
 </tr><tr>
   <td>15</td>
   <td>Cursor Setup</td>
   <td><a href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank" rel="noopener noreferrer">Cursor AI Tutorial for Beginners 2026</a></td>
   <td>Cursor installed, first AI edit</td>
-  <td class="instruction-cell">Download Cursor from cursor.com (it&#x27;s free). Watch the tutorial. Open one of your existing projects in Cursor. Press Ctrl+K (or Cmd+K on Mac) and type: &#x27;Add a header with my app name and a navigation menu.&#x27; Watch the AI write the code.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://cursor.com/download" target="_blank">Click here → Download Cursor (free)</a> Install it. It looks like VS Code but has AI built in.</li>
+  <li><span class="step-num">2</span> <a href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank">Click here → Watch Cursor AI Tutorial for Beginners</a></li>
+  <li><span class="step-num">3</span> Open one of your existing projects in Cursor. Press Cmd+K (Mac) or Ctrl+K (Windows). Type "Add a footer with my contact email." Watch it write the code.</li>
+</ol>
+</td>
 </tr><tr>
   <td>16</td>
   <td>Cursor Basics</td>
   <td><a href="https://www.youtube.com/watch?v=sUlFpmP5j0o" target="_blank" rel="noopener noreferrer">How to Build App with AI using Cursor</a></td>
   <td>Small app built with Cursor</td>
-  <td class="instruction-cell">In Cursor, open a blank project folder. Press Ctrl+L to open AI chat. Describe what you want to build. Let Cursor write all the code. Your job: describe, review, test. Not to write every line yourself.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Open Cursor. Press Cmd+L (Mac) or Ctrl+L (Windows) to open the AI chat panel on the right.</li>
+  <li><span class="step-num">2</span> Type: "Create a simple landing page for a pet sitting service in Mission Viejo. Include a hero section with headline, a services list with 3 services, and a contact form." Press Enter.</li>
+  <li><span class="step-num">3</span> Review what it generates. Press Cmd+K and ask it to "Make the hero background dark navy and the button teal green."</li>
+</ol>
+</td>
 </tr><tr>
   <td>17</td>
   <td>Cursor + React</td>
   <td><a href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank" rel="noopener noreferrer">Cursor AI Tutorial for Beginners</a></td>
   <td>React app scaffolded in Cursor</td>
-  <td class="instruction-cell">In Cursor, type in chat: &#x27;Create a new React app for a pet sitting service. Include a homepage with a hero section, services list, and contact form.&#x27; Let it generate everything. Then run it and see your app!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> In Cursor AI chat, type: "Create a React app for a pet sitting service with: a homepage, a services page, and a contact page. Use React Router for navigation."</li>
+  <li><span class="step-num">2</span> When it generates the code, open the terminal in Cursor (View → Terminal) and type: npm install, then npm start. Your app opens in the browser.</li>
+  <li><span class="step-num">3</span> If anything looks wrong, describe the issue to Cursor: "The navigation bar overlaps the content on mobile. Fix it."</li>
+</ol>
+</td>
 </tr><tr>
   <td>18</td>
   <td>Cursor + OpenAI</td>
   <td><a href="https://www.youtube.com/watch?v=oQDCAJnr1aU" target="_blank" rel="noopener noreferrer">Cursor AI features tutorial</a></td>
   <td>AI chat feature added to app</td>
-  <td class="instruction-cell">Ask Cursor to &#x27;Add an AI chat assistant to my app using the OpenAI API. The assistant answers questions about pet care.&#x27; Get a free OpenAI API key at platform.openai.com. Add it to your .env file.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://platform.openai.com/signup" target="_blank">Click here → Create a free OpenAI account</a> and get your API key from Settings → API Keys.</li>
+  <li><span class="step-num">2</span> In Cursor, ask: "Add an AI chat assistant to my app using the OpenAI API. The assistant answers questions about pet care. Use the API key I'll add to a .env file."</li>
+  <li><span class="step-num">3</span> Create a file called .env in your project and add: REACT_APP_OPENAI_KEY=your_key_here. Test the chat — ask it "How often should I walk a golden retriever?"</li>
+</ol>
+</td>
 </tr><tr>
   <td>19</td>
   <td>Cursor Project</td>
   <td><a href="https://www.youtube.com/watch?v=sUlFpmP5j0o" target="_blank" rel="noopener noreferrer">Build App with Cursor — Full Series</a></td>
   <td>Complete small app with Cursor</td>
-  <td class="instruction-cell">Build a complete mini-app from scratch using only Cursor AI. Choose something simple: a recipe organizer, a habit tracker, or a note-taking app. Describe everything in plain English. Don&#x27;t manually type any code.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Pick a mini-app idea: recipe organizer, habit tracker, or note-taking app. Open Cursor and describe the whole app in one paragraph to the AI chat.</li>
+  <li><span class="step-num">2</span> Build it entirely through Cursor AI — no manual coding. Describe each feature one by one and let Cursor generate it.</li>
+  <li><span class="step-num">3</span> Deploy it free on <a href="https://vercel.com" target="_blank">Vercel.com</a> — connect your GitHub account and click "New Project." Your app is live.</li>
+</ol>
+</td>
 </tr><tr>
   <td>20</td>
   <td>Add Stripe</td>
   <td><a href="https://www.youtube.com/watch?v=unuomzBEHlE" target="_blank" rel="noopener noreferrer">Supabase + Stripe Tutorial</a></td>
   <td>Stripe payments working in app</td>
-  <td class="instruction-cell">Watch the Supabase + Stripe tutorial. Then ask Cursor to &#x27;Add Stripe subscription payments to my app with a monthly plan for $19/month.&#x27; Follow the video steps. Test with 4242 4242 4242 4242.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=unuomzBEHlE" target="_blank">Click here → Watch: Supabase + Stripe Full Stack Tutorial</a></li>
+  <li><span class="step-num">2</span> In Cursor, ask: "Add Stripe subscription payments to my app. Create a $19/month plan. When users subscribe, mark them as 'premium' in Supabase."</li>
+  <li><span class="step-num">3</span> Test with Stripe card <strong>4242 4242 4242 4242</strong>. Confirm the user status changes to premium in your Supabase dashboard.</li>
+</ol>
+</td>
 </tr><tr>
   <td>21</td>
   <td>Polish + Deploy</td>
   <td><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel — vercel.com</a></td>
   <td>App deployed on Vercel</td>
-  <td class="instruction-cell">Go to vercel.com and connect your GitHub account. Import your project. Vercel will automatically build and deploy it. You&#x27;ll get a live URL like yourapp.vercel.app. MILESTONE: You&#x27;ve deployed a real app! Screenshot it and save it.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Pick your best app from Phase 2. Open it in Cursor and ask: "Review this code and suggest 3 improvements for performance and user experience."</li>
+  <li><span class="step-num">2</span> <a href="https://vercel.com" target="_blank">Deploy to Vercel.com</a> — connect GitHub, click "New Project," select your repo, click Deploy.</li>
+  <li><span class="step-num">3</span> Share your live URL with 3 people. Congratulations — you have completed Phase 2. You are a vibe coder.</li>
+</ol>
+</td>
 </tr></tbody>
       </table>
   </div>
@@ -1448,127 +1709,253 @@
   <td>React Foundations</td>
   <td><a href="https://www.youtube.com/watch?v=tqjJrXd27m4" target="_blank" rel="noopener noreferrer">React 19 Crash Course 2026</a></td>
   <td>Simple React component rendered</td>
-  <td class="instruction-cell">Watch the React crash course (take notes!). Then in VS Code, create your first React component from scratch. A simple one: a ProfileCard that shows a name, photo, and bio. Run it and see it in the browser.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=tqjJrXd27m4" target="_blank">Click here → React 19 Crash Course (90 min)</a> Watch the full video. Code along in VS Code.</li>
+  <li><span class="step-num">2</span> Create your first React app: open your terminal and type: <strong>npx create-react-app my-dashboard</strong> then <strong>cd my-dashboard</strong> then <strong>npm start</strong></li>
+  <li><span class="step-num">3</span> Delete the default App.js content. Build 3 basic components: a Header, a StatsCard, and a simple List. Use fake data for now.</li>
+</ol>
+</td>
 </tr><tr>
   <td>23</td>
   <td>React Components</td>
   <td><a href="https://www.freecodecamp.org/learn/front-end-development-libraries/#react" target="_blank" rel="noopener noreferrer">freeCodeCamp React Course</a></td>
   <td>3 reusable components built</td>
-  <td class="instruction-cell">Go through the freeCodeCamp React module. Today&#x27;s challenge: build 3 reusable components — a Button, a Card, and a Navbar. Then use them together on one page. Reusable means you can use them 10 times with different text.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://react.dev/learn" target="_blank">Click here → Official React Docs: Quick Start</a> Read and follow the Quick Start tutorial — it takes about 45 minutes.</li>
+  <li><span class="step-num">2</span> Add state to your dashboard: a counter that goes up when you click a button, using React's useState hook.</li>
+  <li><span class="step-num">3</span> Ask Cursor: "Explain useState and useEffect to me with a simple example in my current React app."</li>
+</ol>
+</td>
 </tr><tr>
   <td>24</td>
   <td>React State</td>
   <td><a href="https://www.freecodecamp.org/learn/front-end-development-libraries/#react" target="_blank" rel="noopener noreferrer">freeCodeCamp React Course continued</a></td>
   <td>Counter + form with state</td>
-  <td class="instruction-cell">Continue the freeCodeCamp React course. Focus on useState today. Build a simple counter (+ and - buttons) and then a form that remembers what you type. State is how React remembers things between clicks.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://react.dev/learn/thinking-in-react" target="_blank">Click here → Read "Thinking in React" (official guide)</a> This is the most important React concept.</li>
+  <li><span class="step-num">2</span> Add a list of items to your dashboard that can be filtered. Ask Cursor: "Add a search bar that filters a list of business names in my React app."</li>
+  <li><span class="step-num">3</span> Make your dashboard look clean using inline styles or className. Push to GitHub.</li>
+</ol>
+</td>
 </tr><tr>
   <td>25</td>
   <td>Tailwind CSS</td>
   <td><a href="https://www.youtube.com/watch?v=dFgzHOX84xQ" target="_blank" rel="noopener noreferrer">Tailwind CSS Crash Course — Traversy Media</a></td>
   <td>Webpage restyled with Tailwind</td>
-  <td class="instruction-cell">Watch the Tailwind crash course. Then open your React project and install Tailwind. Re-style your components using only Tailwind classes — no more separate CSS files. Try: bg-teal-600, text-white, p-4, rounded-xl, shadow-md.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=dFgzHOX84xQ" target="_blank">Click here → Tailwind CSS Crash Course by Traversy Media</a></li>
+  <li><span class="step-num">2</span> <a href="https://tailwindcss.com/docs/installation" target="_blank">Click here → Install Tailwind in your React project</a> Follow the official "Framework Guides → Create React App" steps.</li>
+  <li><span class="step-num">3</span> Restyle your dashboard using only Tailwind classes. Try: bg-slate-900 for dark background, text-teal-500 for accent color, p-6 for padding, rounded-xl for cards.</li>
+</ol>
+</td>
 </tr><tr>
   <td>26</td>
   <td>React + Tailwind Project</td>
   <td><a href="https://www.youtube.com/watch?v=tqjJrXd27m4" target="_blank" rel="noopener noreferrer">React + Tailwind combined</a></td>
   <td>Landing page with components</td>
-  <td class="instruction-cell">Build a full landing page using React components + Tailwind styling. Include: Hero section, Feature cards (3 of them), Pricing table, Footer. Each section should be its own component. Ask Cursor to help with sections you&#x27;re unsure about.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> In Cursor, ask: "Rebuild my dashboard as a Tailwind CSS dark theme. Use a dark sidebar, white card content areas, and teal accent buttons."</li>
+  <li><span class="step-num">2</span> Make it mobile-responsive: add Tailwind's responsive prefixes (sm:, md:, lg:). Test by resizing your browser window.</li>
+  <li><span class="step-num">3</span> Push to GitHub and deploy on <a href="https://vercel.com" target="_blank">Vercel</a>. Share the link.</li>
+</ol>
+</td>
 </tr><tr>
   <td>27</td>
   <td>Next.js Intro</td>
   <td><a href="https://www.youtube.com/watch?v=jVsTUGRgy7s" target="_blank" rel="noopener noreferrer">Complete Beginner&#x27;s Guide to Next.js 2026</a></td>
   <td>Next.js project running locally</td>
-  <td class="instruction-cell">Watch the Next.js beginner guide. Then run: npx create-next-app@latest my-app in your terminal. Say yes to all options including Tailwind. Open the project in Cursor. Change the homepage text to something personal.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://nextjs.org/learn" target="_blank">Click here → Official Next.js Learn Course (free)</a> Start Chapter 1: Getting Started.</li>
+  <li><span class="step-num">2</span> This course builds a complete invoice dashboard. Follow every chapter exactly. Do NOT skip any step.</li>
+  <li><span class="step-num">3</span> Complete Chapters 1–3 today. Goal: app running locally with basic routing between pages.</li>
+</ol>
+</td>
 </tr><tr>
   <td>28</td>
   <td>Next.js Routing</td>
   <td><a href="https://nextjs.org/learn" target="_blank" rel="noopener noreferrer">Official Next.js Learn Course — Ch. 1–4</a></td>
   <td>Multi-page Next.js app</td>
-  <td class="instruction-cell">Go through Chapters 1–4 of the official Next.js tutorial at nextjs.org/learn. These chapters cover: creating pages, linking between them, and adding CSS. Complete all exercises in the browser. This is the best Next.js tutorial that exists.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://nextjs.org/learn" target="_blank">Continue Next.js Learn Course</a> Complete Chapters 4–6 (CSS styling, fonts, images, layouts).</li>
+  <li><span class="step-num">2</span> Pay attention to how Next.js handles routing — it's file-based. Each file in the /app folder becomes a page automatically.</li>
+  <li><span class="step-num">3</span> Ask Cursor: "In Next.js App Router, how do I create a new page at /dashboard/settings?" Let it show you the file structure.</li>
+</ol>
+</td>
 </tr><tr>
   <td>29</td>
   <td>Next.js Data</td>
   <td><a href="https://nextjs.org/learn" target="_blank" rel="noopener noreferrer">Official Next.js Learn Course — Ch. 5–8</a></td>
   <td>Data fetching from API added</td>
-  <td class="instruction-cell">Continue with Chapters 5–8. These cover fetching data, databases, and streaming. Take your time — this is where it gets powerful. If something is confusing, pause and ask Claude: &#x27;Explain Next.js data fetching like I&#x27;m 12 years old.&#x27;</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://nextjs.org/learn" target="_blank">Continue Next.js Learn Course</a> Complete Chapters 7–9 (fetching data, static/dynamic rendering, streaming).</li>
+  <li><span class="step-num">2</span> These chapters explain how data gets into your pages. This is the most important Next.js concept — read carefully.</li>
+  <li><span class="step-num">3</span> If confused, ask <a href="https://claude.ai" target="_blank">Claude</a>: "Explain server components vs client components in Next.js 14 in simple terms."</li>
+</ol>
+</td>
 </tr><tr>
   <td>30</td>
   <td>Next.js Complete</td>
   <td><a href="https://nextjs.org/learn" target="_blank" rel="noopener noreferrer">Official Next.js Learn Course — Ch. 9–16</a></td>
   <td>Full Next.js dashboard app</td>
-  <td class="instruction-cell">Finish Chapters 9–16. By the end, you&#x27;ll have built a full Next.js dashboard app from scratch. This is a big achievement! After finishing, write down 3 things you learned. Then add the project to your GitHub.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://nextjs.org/learn" target="_blank">Complete Next.js Learn Course</a> — Chapters 10–16. These cover search, pagination, mutations, error handling, authentication, metadata.</li>
+  <li><span class="step-num">2</span> You now have a complete working Next.js dashboard app. Deploy it to <a href="https://vercel.com" target="_blank">Vercel</a>.</li>
+  <li><span class="step-num">3</span> Celebrate — you finished the official Next.js course. This is a major milestone.</li>
+</ol>
+</td>
 </tr><tr>
   <td>31</td>
   <td>Supabase Intro</td>
   <td><a href="https://supabase.com/solutions/beginners" target="_blank" rel="noopener noreferrer">Supabase for Beginners — Official</a></td>
   <td>Supabase project created</td>
-  <td class="instruction-cell">Go to supabase.com and create a free account. Create a new project. In the Table Editor, create a table called &#x27;products&#x27; with columns: id, name, price, description. Insert 3 sample rows. Look at your data!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://supabase.com/dashboard" target="_blank">Log into your Supabase dashboard</a> and create a new project. Name it after your app idea.</li>
+  <li><span class="step-num">2</span> <a href="https://supabase.com/docs/guides/getting-started/quickstarts/nextjs" target="_blank">Click here → Supabase + Next.js Quickstart Guide</a> Follow every step.</li>
+  <li><span class="step-num">3</span> Create your first database table: a "users" table with columns: id, name, email, created_at. Use the Supabase Table Editor (it looks like a spreadsheet).</li>
+</ol>
+</td>
 </tr><tr>
   <td>32</td>
   <td>Supabase Auth</td>
   <td><a href="https://www.frontendtechlead.com/learn-supabase" target="_blank" rel="noopener noreferrer">Free Supabase Tutorial</a></td>
   <td>Login/signup working in app</td>
-  <td class="instruction-cell">Follow the Supabase tutorial on frontendtechlead.com. Add authentication to your Next.js app: a signup page, login page, and a protected page that only logged-in users can see. Test by creating an account.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://supabase.com/docs/guides/auth/quickstarts/nextjs" target="_blank">Click here → Supabase Auth with Next.js Guide</a> Follow it to add user sign-up and login.</li>
+  <li><span class="step-num">2</span> Add a protected page: a /dashboard route that only shows content if the user is logged in. Redirect to /login if not.</li>
+  <li><span class="step-num">3</span> Test: create a test account, log in, confirm the dashboard shows. Log out, confirm it redirects to login.</li>
+</ol>
+</td>
 </tr><tr>
   <td>33</td>
   <td>Supabase Database</td>
   <td><a href="https://dev.to/nhannguyenuri/getting-started-with-supabase-d1p" target="_blank" rel="noopener noreferrer">Getting Started with Supabase — dev.to</a></td>
   <td>CRUD operations working</td>
-  <td class="instruction-cell">Read the dev.to guide. Build Create-Read-Update-Delete (CRUD) operations for your products table. In plain English: your app should be able to add, show, edit, and delete products. Ask Cursor to generate the code.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://supabase.com/docs/guides/database/tables" target="_blank">Click here → Supabase Tables Documentation</a> Read the "Creating Tables" section.</li>
+  <li><span class="step-num">2</span> In your Supabase dashboard, go to SQL Editor. Ask <a href="https://claude.ai" target="_blank">Claude</a>: "Write SQL to create a bookings table with: id, user_id, service_type, date, status, created_at." Run that SQL.</li>
+  <li><span class="step-num">3</span> In your Next.js app, write a function that reads all bookings from your table and displays them in a list.</li>
+</ol>
+</td>
 </tr><tr>
   <td>34</td>
   <td>Next.js + Supabase</td>
   <td><a href="https://supabase.com/solutions/beginners" target="_blank" rel="noopener noreferrer">Supabase + Next.js integration guide</a></td>
   <td>Full-stack app with real data</td>
-  <td class="instruction-cell">Follow Supabase&#x27;s Next.js integration guide. Connect your Next.js app to your Supabase database. Display real data from your database on your Next.js pages. This is full-stack! Front-end + back-end working together.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Add a booking form to your Next.js app: name, email, service, preferred date. When submitted, it saves to your Supabase bookings table.</li>
+  <li><span class="step-num">2</span> Test it: fill out the form, submit, check your Supabase dashboard to see the new row appear.</li>
+  <li><span class="step-num">3</span> Deploy the updated app to <a href="https://vercel.com" target="_blank">Vercel</a>. Add Supabase environment variables in Vercel's project settings.</li>
+</ol>
+</td>
 </tr><tr>
   <td>35</td>
   <td>Stripe Basics</td>
   <td><a href="https://www.youtube.com/watch?v=unuomzBEHlE" target="_blank" rel="noopener noreferrer">Supabase + Stripe Full Stack Tutorial</a></td>
   <td>Payment checkout page built</td>
-  <td class="instruction-cell">Watch the Supabase + Stripe tutorial. Add a payment button to your app. When someone clicks it, they go to a Stripe checkout page. Test the whole flow using 4242 4242 4242 4242. See the successful payment in your Stripe dashboard.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://stripe.com/docs/billing/subscriptions/build-subscriptions" target="_blank">Click here → Stripe Subscription Setup Guide</a> Read the overview section.</li>
+  <li><span class="step-num">2</span> In your <a href="https://dashboard.stripe.com/products" target="_blank">Stripe dashboard</a>, create a Product called "Pro Plan" priced at $29/month.</li>
+  <li><span class="step-num">3</span> Ask Cursor: "Add a Stripe checkout page to my Next.js app that charges $29/month. Use the Stripe JS library."</li>
+</ol>
+</td>
 </tr><tr>
   <td>36</td>
   <td>Stripe Subscriptions</td>
   <td><a href="https://www.youtube.com/watch?v=Z87vZFYC7hc" target="_blank" rel="noopener noreferrer">Full-Stack App with Supabase + Stripe</a></td>
   <td>Monthly subscription working</td>
-  <td class="instruction-cell">Watch this full-stack tutorial. Create a monthly subscription plan in Stripe ($19/month). Add a &#x27;Subscribe&#x27; button to your app that starts the subscription. After a test payment, confirm the user gets access to premium features.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://stripe.com/docs/webhooks" target="_blank">Click here → Stripe Webhooks Documentation</a> Read "What are webhooks?" and "Set up webhooks."</li>
+  <li><span class="step-num">2</span> Ask Cursor: "Create a webhook endpoint in my Next.js app at /api/webhook that listens for Stripe payment_intent.succeeded events and updates the user status in Supabase."</li>
+  <li><span class="step-num">3</span> Test with <a href="https://stripe.com/docs/stripe-cli" target="_blank">Stripe CLI</a> (free): install it, run stripe listen, and trigger a test event.</li>
+</ol>
+</td>
 </tr><tr>
   <td>37</td>
   <td>Stripe Webhooks</td>
   <td><a href="https://stripe.com/docs" target="_blank" rel="noopener noreferrer">Stripe docs — stripe.com/docs</a></td>
   <td>Webhook receiving payments</td>
-  <td class="instruction-cell">Read the Stripe webhooks documentation. Create a webhook endpoint in your Next.js app (a special URL that Stripe sends notifications to). When Stripe sends a &#x27;payment_succeeded&#x27; event, your app unlocks user access. Ask Cursor to write the webhook handler.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Add a customer portal: in Stripe dashboard, go to Settings → Billing Portal and enable it. In your app, add a "Manage Subscription" button that links to the portal.</li>
+  <li><span class="step-num">2</span> Test the full flow: sign up → pay → access premium feature → manage subscription → cancel. Fix any broken steps.</li>
+  <li><span class="step-num">3</span> Deploy to <a href="https://vercel.com" target="_blank">Vercel</a>. Add all Stripe environment variables in Vercel's project settings.</li>
+</ol>
+</td>
 </tr><tr>
   <td>38</td>
   <td>OpenAI API Setup</td>
   <td><a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreferrer">OpenAI API Quickstart</a></td>
   <td>OpenAI API key working</td>
-  <td class="instruction-cell">Go to platform.openai.com and create an account. Get your API key. Add it to your .env.local file as OPENAI_API_KEY=your-key-here. Follow the quickstart guide to make your first API call. Ask it: &#x27;Explain what this app does in one sentence.&#x27;</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://platform.openai.com/docs/quickstart" target="_blank">Click here → OpenAI API Quickstart Guide</a> Read the "Your First API Request" section.</li>
+  <li><span class="step-num">2</span> <a href="https://platform.openai.com/api-keys" target="_blank">Click here → Get your OpenAI API key</a> Copy it. Add it to your .env.local file as OPENAI_API_KEY=your_key.</li>
+  <li><span class="step-num">3</span> Ask Cursor: "Create a simple chat interface in my Next.js app using the OpenAI API. The assistant answers questions about [your app topic]."</li>
+</ol>
+</td>
 </tr><tr>
   <td>39</td>
   <td>AI Chatbot</td>
   <td><a href="https://www.futurepedia.io/courses/ai-coding-for-entrepreneurs" target="_blank" rel="noopener noreferrer">Futurepedia AI Coding for Entrepreneurs</a></td>
   <td>Working chatbot in your app</td>
-  <td class="instruction-cell">Build an AI chatbot feature using the OpenAI API. Ask Cursor: &#x27;Add a chat widget to my app. Users can type questions and get AI responses using OpenAI GPT.&#x27; Test it by asking it questions about your app&#x27;s topic.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Ask Cursor: "Build a document summarizer page in my Next.js app. User pastes text → clicks Summarize → OpenAI returns a 3-bullet summary."</li>
+  <li><span class="step-num">2</span> Test it with a long article. Paste the text, click Summarize. Confirm the output makes sense.</li>
+  <li><span class="step-num">3</span> Improve the prompt: ask Cursor to "Update the system prompt to always return exactly 3 bullet points, each starting with an action verb."</li>
+</ol>
+</td>
 </tr><tr>
   <td>40</td>
   <td>AI Content Generation</td>
   <td><a href="https://platform.openai.com/docs" target="_blank" rel="noopener noreferrer">OpenAI API docs — platform.openai.com</a></td>
   <td>AI-generated content feature</td>
-  <td class="instruction-cell">Add an AI content generation feature. For example: a button that generates product descriptions, blog post drafts, or email templates. Use the OpenAI API. Prompt engineering tip: be specific about format — &#x27;Write a 50-word product description for...&#x27;</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Add one AI feature to your main app project. Choose: (A) auto-generate a response to a customer review, (B) auto-write a product description, or (C) auto-categorize a form submission.</li>
+  <li><span class="step-num">2</span> Describe it to Cursor: "In my [app type] app, when a user submits [X], automatically generate [Y] using the OpenAI API and show it to the user."</li>
+  <li><span class="step-num">3</span> Test 10 different inputs. Fix any response quality issues by improving the system prompt.</li>
+</ol>
+</td>
 </tr><tr>
   <td>41</td>
   <td>Vercel Deploy</td>
   <td><a href="https://www.youtube.com/watch?v=EUgBkuBzTPA" target="_blank" rel="noopener noreferrer">Deploy AI Project to Vercel — Jan 2026 Tutorial</a></td>
   <td>Full-stack app live on Vercel</td>
-  <td class="instruction-cell">Watch this deploy tutorial. Push your complete Next.js + Supabase + Stripe + OpenAI app to GitHub. Then deploy to Vercel. Add your environment variables (API keys) in the Vercel dashboard under Settings → Environment Variables. Go live!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://vercel.com/new" target="_blank">Click here → Vercel New Project</a> Connect your GitHub. Select your main Phase 3 project. Click Deploy.</li>
+  <li><span class="step-num">2</span> <a href="https://namecheap.com" target="_blank">Buy a domain at Namecheap.com</a> — search for yourappname.com. It costs about $12/year. Then in Vercel, go to your project → Settings → Domains → Add your domain.</li>
+  <li><span class="step-num">3</span> <a href="https://vercel.com/docs/analytics" target="_blank">Enable Vercel Analytics</a> — go to your project dashboard → Analytics tab → Enable. Free tier included.</li>
+</ol>
+</td>
 </tr><tr class="milestone-row">
   <td>42</td>
   <td>Milestone Review</td>
   <td>All tools combined</td>
   <td>Portfolio: 3+ apps deployed</td>
-  <td class="instruction-cell">Today is a review day — no new learning! Open all 3+ apps you&#x27;ve built and test each one. Fix any broken links or errors. Write a simple README for each GitHub repo describing what the app does. You&#x27;ve completed Phase 3!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Your Phase 3 app is live. Share the URL with 5 people. Ask them: "What's confusing? What would make this worth $29/month?"</li>
+  <li><span class="step-num">2</span> Write down every piece of feedback. Prioritize: which 3 fixes would have the most impact?</li>
+  <li><span class="step-num">3</span> Take the Phase 3 Knowledge Check quiz below before moving to Phase 4.</li>
+</ol>
+</td>
 </tr></tbody>
       </table>
   </div>
@@ -1760,109 +2147,217 @@
   <td>Choose Your Product</td>
   <td>Internal planning + Claude AI</td>
   <td>Product idea + target user written</td>
-  <td class="instruction-cell">Open Claude at claude.ai (free). Type: &#x27;I want to build a SaaS app. My background is [your background]. Help me think of 3 app ideas for [specific audience]. For each idea, tell me: who pays for it, and why.&#x27; Pick one idea and write 3 sentences describing it.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Choose your product: (A) AI Review Responder for local businesses, (B) Booking portal for a service business, (C) Senior care resource directory, or (D) your own idea.</li>
+  <li><span class="step-num">2</span> Write one sentence: "I am building [X] for [Y] because [Z]." Example: "I am building an AI review responder for restaurant owners because they spend 2 hours/week writing replies."</li>
+  <li><span class="step-num">3</span> Ask <a href="https://claude.ai" target="_blank">Claude</a>: "Is this a good app idea? [paste your sentence]. What are 3 similar tools that already exist and how would I be different?"</li>
+</ol>
+</td>
 </tr><tr>
   <td>44</td>
   <td>PRD + Architecture</td>
   <td><a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude — claude.ai</a></td>
   <td>Complete PRD document written</td>
-  <td class="instruction-cell">Write your Product Requirements Document with Claude&#x27;s help. Ask: &#x27;Help me write a PRD for my app: [your app description]. Include: what it does, who it&#x27;s for, the 5 main features, and pricing.&#x27; Save it in a Google Doc. This is your North Star.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://claude.ai" target="_blank">Open Claude</a> and type: "I want to build [your app]. Help me write a one-page Product Requirements Document (PRD) with: target user, core problem, 5 main features, pricing model, and tech stack."</li>
+  <li><span class="step-num">2</span> Review the PRD Claude writes. Edit anything that doesn't fit. Save it in a Google Doc or Notion page.</li>
+  <li><span class="step-num">3</span> This PRD is your contract with yourself. Every time you feel lost, come back to it.</li>
+</ol>
+</td>
 </tr><tr>
   <td>45</td>
   <td>Build Core (Day 1)</td>
   <td><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable — lovable.dev</a></td>
   <td>Core app UI built</td>
-  <td class="instruction-cell">Open Lovable and paste your PRD summary as the app description. Let Lovable build the first version of your app. Don&#x27;t expect perfection — expect a working skeleton. Focus on: does the main feature work? Can a user do the core action?</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://lovable.dev" target="_blank">Open Lovable.dev</a> and paste your PRD into the prompt. Let it generate the app skeleton.</li>
+  <li><span class="step-num">2</span> Review what it builds. Make a list of 5 specific things that are wrong or missing.</li>
+  <li><span class="step-num">3</span> Open the project in <a href="https://cursor.com" target="_blank">Cursor</a>. Fix the first 2 items on your list using Cursor AI chat.</li>
+</ol>
+</td>
 </tr><tr>
   <td>46</td>
   <td>Build Core (Day 2)</td>
   <td><a href="https://cursor.com" target="_blank" rel="noopener noreferrer">Cursor — cursor.com</a></td>
   <td>Core features working</td>
-  <td class="instruction-cell">Open your Lovable-built app in Cursor. Start refining. Ask Cursor: &#x27;Improve the UI to look more professional. Add proper error messages when something goes wrong. Make the main button more prominent.&#x27; Fix the 3 most important things.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> In Cursor, fix the remaining 3 items from your Day 45 list. Describe each one: "In my [app], the [feature] doesn't work correctly. It should [desired behavior]. Fix it."</li>
+  <li><span class="step-num">2</span> Add your core AI feature using the OpenAI API. This is the thing that makes your app worth paying for.</li>
+  <li><span class="step-num">3</span> Test it 10 times with different inputs. Fix any bad outputs by improving your system prompt.</li>
+</ol>
+</td>
 </tr><tr>
   <td>47</td>
   <td>Add Auth + Payments</td>
   <td><a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase + Stripe integration</a></td>
   <td>Login + payments working</td>
-  <td class="instruction-cell">Connect Supabase for user accounts and Stripe for payments. Test the complete flow: visit your app → sign up → subscribe → access premium features. If anything breaks, ask Cursor to debug: &#x27;I get this error: [paste error]. How do I fix it?&#x27;</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://supabase.com/dashboard" target="_blank">Log into Supabase</a> and connect it to your app. Add user authentication (sign up / log in / log out).</li>
+  <li><span class="step-num">2</span> <a href="https://dashboard.stripe.com" target="_blank">Log into Stripe</a> and create your subscription plan. Connect Stripe to your app.</li>
+  <li><span class="step-num">3</span> Test the full flow: sign up → pay → access premium AI feature. This is a real business. Celebrate.</li>
+</ol>
+</td>
 </tr><tr>
   <td>48</td>
   <td>Add AI Features</td>
   <td><a href="https://platform.openai.com" target="_blank" rel="noopener noreferrer">OpenAI API integration</a></td>
   <td>AI feature live in app</td>
-  <td class="instruction-cell">Add the AI feature that makes your app special. What&#x27;s the one AI thing your users will love? A smart assistant? Auto-fill? Analysis? Build it. Keep it simple — one focused AI feature done well is better than five half-finished ones.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Test your app yourself — go through every single button and feature as if you are a brand new user. Write down every broken thing.</li>
+  <li><span class="step-num">2</span> Fix the top 5 most broken things using Cursor.</li>
+  <li><span class="step-num">3</span> Ask <a href="https://claude.ai" target="_blank">Claude</a>: "Review my app features: [list them]. What would a first-time user find confusing?"</li>
+</ol>
+</td>
 </tr><tr>
   <td>49</td>
   <td>First User Test</td>
   <td>Real person feedback</td>
   <td>5 user feedbacks collected</td>
-  <td class="instruction-cell">Find 5 real people to test your app — family, friends, WeChat contacts. Don&#x27;t explain anything. Just watch them use it. Write down: what confused them, what they asked, what they loved. This feedback is GOLD. Don&#x27;t defend your choices — just listen.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Find one real person who is your target user (family, friend, WeChat contact, neighbor). Ask them to try your app while you watch silently.</li>
+  <li><span class="step-num">2</span> Do NOT explain anything. Just watch and take notes: What did they click first? Where did they hesitate? What confused them?</li>
+  <li><span class="step-num">3</span> After, ask: "What would make this worth paying $19/month?" Write down their exact words.</li>
+</ol>
+</td>
 </tr><tr>
   <td>50</td>
   <td>Fix + Iterate</td>
   <td>Based on user feedback</td>
   <td>Top 3 issues fixed</td>
-  <td class="instruction-cell">Look at your feedback notes. Pick the 3 most common problems. Fix those first. Ask Cursor to help: &#x27;My users were confused by X. Change it to Y.&#x27; Then re-test with 2 people. Is it better? Repeat until it feels smooth.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Open your app on your phone. Fix everything that looks bad or is hard to tap. Use Cursor: "Make my app fully mobile responsive using Tailwind CSS responsive classes."</li>
+  <li><span class="step-num">2</span> Test on both iPhone and Android screen sizes (use Chrome DevTools → device toolbar).</li>
+  <li><span class="step-num">3</span> Fix the top 3 mobile issues. Most users will use your app on their phone.</li>
+</ol>
+</td>
 </tr><tr>
   <td>51</td>
   <td>Mobile Responsive</td>
   <td><a href="https://tailwindcss.com/docs/responsive-design" target="_blank" rel="noopener noreferrer">Tailwind responsive docs</a></td>
   <td>App looks great on phone</td>
-  <td class="instruction-cell">Open your app on your phone. What looks broken? Small text? Buttons too close together? Go to Cursor and ask: &#x27;Make my app mobile responsive. Fix: [list the problems you see on your phone].&#x27; Test on both Android and iPhone if possible.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Fix the top 3 issues from your Day 49 user test. Use Cursor for code changes.</li>
+  <li><span class="step-num">2</span> Improve your loading states: ask Cursor "Add loading spinners whenever data is being fetched in my app."</li>
+  <li><span class="step-num">3</span> Deploy the updated version to Vercel. This is Version 2.</li>
+</ol>
+</td>
 </tr><tr>
   <td>52</td>
   <td>SEO Basics</td>
   <td><a href="https://nextjs.org/learn/seo/introduction-to-seo" target="_blank" rel="noopener noreferrer">Next.js SEO guide</a></td>
   <td>Meta tags + sitemap added</td>
-  <td class="instruction-cell">Follow the Next.js SEO guide. Add a page title, description, and Open Graph image to every page. When someone shares your app on LinkedIn or WeChat, it should show a nice preview card — not a blank link. Google needs this too.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Final polish day. Check: Does every button work? Does every page load? Are all error messages friendly (not technical jargon)?</li>
+  <li><span class="step-num">2</span> Ask Cursor: "Review all the error messages in my app and rewrite them to be friendly and helpful for non-technical users."</li>
+  <li><span class="step-num">3</span> Deploy. Your app is now ready to show to the world.</li>
+</ol>
+</td>
 </tr><tr>
   <td>53</td>
   <td>Marketing Page</td>
   <td><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable — landing page</a></td>
   <td>Landing page live</td>
-  <td class="instruction-cell">Build a standalone marketing page for your app. Use Lovable to generate it fast. Include: headline (&#x27;The easiest way to...&#x27;), 3 feature benefits, pricing section, and a &#x27;Get Started&#x27; button. This is the page you&#x27;ll share with potential customers.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://lovable.dev" target="_blank">Open Lovable</a> and create a new project for your marketing landing page. Prompt: "A landing page for [your app name]. Headline: [write your best headline]. 3 features, pricing at $29/month, and a sign-up button."</li>
+  <li><span class="step-num">2</span> Ask <a href="https://claude.ai" target="_blank">Claude</a>: "Write a compelling landing page headline for [your app]. Target user: [describe them]. Main benefit: [what it saves them]."</li>
+  <li><span class="step-num">3</span> Deploy the landing page and link it to your main app's sign-up flow.</li>
+</ol>
+</td>
 </tr><tr>
   <td>54</td>
   <td>Custom Domain</td>
   <td><a href="https://vercel.com/docs/projects/domains" target="_blank" rel="noopener noreferrer">Vercel domains guide</a></td>
   <td>yourapp.com connected</td>
-  <td class="instruction-cell">Buy a domain name at namecheap.com or porkbun.com (~$12/year). Then follow Vercel&#x27;s domain guide to connect it. Your app will now live at yourapp.com instead of yourapp.vercel.app. This is the moment it feels real. Screenshot it!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://namecheap.com" target="_blank">Go to Namecheap.com</a> and search for your app name + .com. Buy it if available (about $12/year).</li>
+  <li><span class="step-num">2</span> In your <a href="https://vercel.com/dashboard" target="_blank">Vercel dashboard</a>, go to your project → Settings → Domains → Add domain. Follow the DNS setup steps (Namecheap has a guide for this).</li>
+  <li><span class="step-num">3</span> Within 24 hours, your app lives at yourapp.com. You now have a real business address.</li>
+</ol>
+</td>
 </tr><tr>
   <td>55</td>
   <td>Analytics</td>
   <td><a href="https://vercel.com/analytics" target="_blank" rel="noopener noreferrer">Vercel Analytics — vercel.com</a></td>
   <td>Analytics tracking visitors</td>
-  <td class="instruction-cell">In your Vercel dashboard, go to Analytics and enable it (free). Add one line of code to your Next.js app. Now you&#x27;ll see: how many people visit, which pages they view, where they come from. Check it every morning.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.producthunt.com/posts/new" target="_blank">Click here → Submit your product to Product Hunt</a> Write a clear tagline and description. Add 3 screenshots.</li>
+  <li><span class="step-num">2</span> Post in a relevant Facebook group or LinkedIn group related to your target customer. Write: "I built a free tool for [your target user]. Would love 5 people to try it and give feedback. Link: [your URL]"</li>
+  <li><span class="step-num">3</span> Add <a href="https://vercel.com/docs/analytics" target="_blank">Vercel Analytics</a> to see how many people visit. Check it every day.</li>
+</ol>
+</td>
 </tr><tr>
   <td>56</td>
   <td>Email Notifications</td>
   <td><a href="https://resend.com" target="_blank" rel="noopener noreferrer">Resend — resend.com</a></td>
   <td>Welcome emails sending automatically</td>
-  <td class="instruction-cell">Sign up at resend.com (free plan). Ask Cursor to &#x27;Add Resend email to my app. Send a welcome email when someone signs up and a receipt email when they pay.&#x27; Test by signing up as a new user — you should receive the welcome email in your inbox.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Write 20 personal outreach messages. Template: "Hi [name], I built a tool that helps [specific problem you solve]. I'd love your feedback — free to use. [your URL]. Would you try it?" Send via email, LinkedIn, or WeChat.</li>
+  <li><span class="step-num">2</span> Track responses in a simple Google Sheet: Name | Contacted | Replied | Feedback.</li>
+  <li><span class="step-num">3</span> Goal: at least 3 people trying your app today.</li>
+</ol>
+</td>
 </tr><tr>
   <td>57</td>
   <td>Beta Launch</td>
   <td><a href="https://www.producthunt.com" target="_blank" rel="noopener noreferrer">Product Hunt + local groups</a></td>
   <td>First real users signed up</td>
-  <td class="instruction-cell">Share your app! Post in: a relevant Facebook group, a Reddit community, your LinkedIn, and WeChat. Write a simple message: &#x27;I built this app for [specific people]. It does [specific thing]. Try it free: [your link]. Would love your feedback.&#x27; Don&#x27;t be shy!</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Reply to everyone who gave feedback. Thank them. Ask 1 follow-up question: "What would make this worth $29/month to you?"</li>
+  <li><span class="step-num">2</span> Collect all feedback. Ask <a href="https://claude.ai" target="_blank">Claude</a>: "Here is feedback from 5 users of my app: [paste feedback]. What are the top 3 improvements I should make?"</li>
+  <li><span class="step-num">3</span> Make a prioritized fix list for Days 58–59.</li>
+</ol>
+</td>
 </tr><tr>
   <td>58</td>
   <td>Outreach (Chinese SMBs)</td>
   <td><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn + WeChat outreach</a></td>
   <td>5 business owners contacted</td>
-  <td class="instruction-cell">Identify 5 small business owners who might need your app. Send them a personal message (not copy-paste): &#x27;Hi [name], I saw you run [their business]. I built an app that helps [specific problem you solve]. Can I show you a 5-minute demo? No pressure at all.&#x27;</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Fix the top 2 issues from your feedback list. Use Cursor for each fix.</li>
+  <li><span class="step-num">2</span> Reach out to 10 more potential users. Different from yesterday — target people in a specific group or community.</li>
+  <li><span class="step-num">3</span> Deploy Version 3 to Vercel. Send updated link to everyone who gave you feedback.</li>
+</ol>
+</td>
 </tr><tr>
   <td>59</td>
   <td>Iterate on Feedback</td>
   <td>All tools combined</td>
   <td>Version 2 deployed</td>
-  <td class="instruction-cell">Take all feedback from your first users. Pick the most important improvements. Ask Cursor to help build them. Deploy Version 2. Message the people who gave feedback: &#x27;I heard your feedback and updated the app. Please check: [link]. Does this fix the problem you mentioned?&#x27;</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Fix 2 more issues. Polish any remaining rough edges.</li>
+  <li><span class="step-num">2</span> Write a list: "5 things I would build in Version 4." These are your next 2 weeks of work after Day 60.</li>
+  <li><span class="step-num">3</span> Make sure payments work end-to-end one more time with Stripe test card 4242 4242 4242 4242.</li>
+</ol>
+</td>
 </tr><tr class="milestone-row">
   <td>60</td>
   <td>Launch + Celebrate</td>
   <td>You did it!</td>
   <td>MILESTONE: Real app, real users, real revenue potential</td>
-  <td class="instruction-cell">Today, write down: 1) What did you build? 2) Who are your first users? 3) What&#x27;s the next feature you&#x27;ll add? Then celebrate — seriously. You went from zero to a real app in 60 days. That&#x27;s extraordinary. Share your story.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Your app is live. You built this from scratch in 60 days with zero experience. Take a moment to feel proud.</li>
+  <li><span class="step-num">2</span> Write a 2-sentence summary: what your app does and who it helps. Post it somewhere — LinkedIn, WeChat, a friend group chat.</li>
+  <li><span class="step-num">3</span> Take the Phase 4 Knowledge Check. Then continue to Phase 5: AI Agents.</li>
+</ol>
+</td>
 </tr></tbody>
       </table>
   </div>
@@ -2061,77 +2556,167 @@
   <td>61</td>
   <td>What is an AI Agent?</td>
   <td><a href="https://vellum.ai/blog/beginners-guide-to-building-ai-agents" target="_blank" rel="noopener noreferrer">Vellum Beginner's Guide to AI Agents</a></td>
-  <td class="instruction-cell">Read the guide. Draw the Perceive→Plan→Act→Observe loop.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.vellum.ai/blog/beginners-guide-to-building-ai-agents" target="_blank">Click here → Read: Beginner's Guide to AI Agents by Vellum</a> Read the full article (10 min).</li>
+  <li><span class="step-num">2</span> Draw the agent loop on paper: Goal → Perceive → Plan → Act → Observe → Repeat. Write a real example next to each step.</li>
+  <li><span class="step-num">3</span> Ask <a href="https://claude.ai" target="_blank">Claude</a>: "What is the difference between a chatbot and an AI agent? Give me 3 examples of tasks only an agent can do."</li>
+</ol>
+</td>
 </tr><tr class="row-alt">
   <td>62</td>
   <td>Chatbot vs App vs Agent</td>
   <td><a href="https://www.youtube.com/watch?v=C05XDMGaAn8" target="_blank" rel="noopener noreferrer">AI Agent Tutorial for Beginners 2026</a></td>
-  <td class="instruction-cell">Watch the full video. Write: "An agent is different because..."</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=C05XDMGaAn8" target="_blank">Click here → Watch: AI Agent Tutorial for Beginners 2026</a></li>
+  <li><span class="step-num">2</span> <a href="https://agentgpt.reworkd.ai" target="_blank">Click here → Open AgentGPT (free)</a> Give it a goal: "Research the top 5 AI tools for small businesses and write a summary." Watch how it plans and executes.</li>
+  <li><span class="step-num">3</span> Write: "An agent is different from a chatbot because..." in your own words.</li>
+</ol>
+</td>
 </tr><tr>
   <td>63</td>
   <td>The Agent Loop</td>
   <td><a href="https://agentgpt.reworkd.ai" target="_blank" rel="noopener noreferrer">AgentGPT — free tier</a></td>
-  <td class="instruction-cell">Experiment with AgentGPT. Give it a goal. Watch how it plans.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://agentgpt.reworkd.ai" target="_blank">Open AgentGPT</a> and give it 3 different goals. Observe how it breaks each goal into steps.</li>
+  <li><span class="step-num">2</span> Sketch an agent design for your own app: What goal would it have? What steps would it take? What tools would it need?</li>
+  <li><span class="step-num">3</span> Ask <a href="https://claude.ai" target="_blank">Claude</a>: "What are the most common failure modes of AI agents and how do I prevent them?"</li>
+</ol>
+</td>
 </tr><tr class="row-alt">
   <td>64</td>
   <td>Agent Design Patterns</td>
   <td><a href="https://docs.n8n.io/advanced-ai" target="_blank" rel="noopener noreferrer">n8n Agent Docs</a></td>
-  <td class="instruction-cell">Read the docs intro. Sketch 1 agent design for your own app.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://docs.n8n.io/advanced-ai/" target="_blank">Click here → Read n8n Advanced AI Documentation intro</a> — read the first 3 sections.</li>
+  <li><span class="step-num">2</span> Read about the ReAct pattern (Reason + Act) — this is how most agents think. Ask Claude to explain it simply.</li>
+  <li><span class="step-num">3</span> Sketch 1 agent design using the ReAct pattern for a real use case in your industry.</li>
+</ol>
+</td>
 </tr><tr>
   <td>65</td>
   <td>n8n Setup + First Workflow</td>
   <td><a href="https://n8n.io" target="_blank" rel="noopener noreferrer">Sign up: n8n.io (free cloud)</a></td>
-  <td class="instruction-cell">Create your n8n account. Complete the quickstart tutorial.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://n8n.io/get-started/" target="_blank">Click here → Sign up for n8n free cloud account</a> Use the cloud version — no installation needed.</li>
+  <li><span class="step-num">2</span> Complete the n8n quickstart tutorial (it appears on your dashboard when you first log in). Takes about 20 minutes.</li>
+  <li><span class="step-num">3</span> Create your first workflow: a simple trigger (manual) → a text node that says "Hello from my first n8n workflow." Execute it.</li>
+</ol>
+</td>
 </tr><tr class="row-alt">
   <td>66</td>
   <td>Build Your First AI Agent in n8n</td>
   <td><a href="https://www.youtube.com/watch?v=a8NA0WGI9OI" target="_blank" rel="noopener noreferrer">Watch: Build AI Agents with n8n</a></td>
-  <td class="instruction-cell">Follow the video step by step. Get one agent working.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.youtube.com/watch?v=a8NA0WGI9OI" target="_blank">Click here → Watch: Build AI Agents with n8n</a> Follow along in your n8n dashboard.</li>
+  <li><span class="step-num">2</span> Build the agent from the video: webhook trigger → AI Agent node → OpenAI → respond. Connect your OpenAI API key in the n8n credentials panel.</li>
+  <li><span class="step-num">3</span> Test your agent by sending it a test message. Confirm it responds intelligently.</li>
+</ol>
+</td>
 </tr><tr>
   <td>67</td>
   <td>Adding Tools to Your Agent</td>
   <td><a href="https://n8n.io/workflows" target="_blank" rel="noopener noreferrer">n8n template library</a></td>
-  <td class="instruction-cell">Browse templates. Add a web search tool to your agent.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://n8n.io/workflows/" target="_blank">Click here → Browse n8n Workflow Templates</a> Search for "AI agent." Pick one that interests you and import it.</li>
+  <li><span class="step-num">2</span> Add a web search tool to your n8n agent: search for "SerpAPI" in n8n nodes. Sign up for a <a href="https://serpapi.com" target="_blank">free SerpAPI account</a> and get your API key.</li>
+  <li><span class="step-num">3</span> Test: ask your agent "What are the top 3 AI tools released this week?" It should search and return real results.</li>
+</ol>
+</td>
 </tr><tr class="row-alt">
   <td>68</td>
   <td>Testing &amp;amp; Debugging Agents</td>
   <td><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer">n8n Docs</a></td>
-  <td class="instruction-cell">Break your agent intentionally. Fix it. Understand the error.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Intentionally break your n8n agent: give it an impossible task or wrong input. What happens? Does it fail gracefully or crash?</li>
+  <li><span class="step-num">2</span> Add error handling: in n8n, right-click any node → "Add Error Handler." Connect it to a "Set" node that returns a friendly error message.</li>
+  <li><span class="step-num">3</span> Ask <a href="https://claude.ai" target="_blank">Claude</a>: "What are best practices for handling errors in n8n AI agent workflows?"</li>
+</ol>
+</td>
 </tr><tr>
   <td>69</td>
   <td>RAG — Agents That Know Your Business</td>
   <td><a href="https://blog.langchain.dev" target="_blank" rel="noopener noreferrer">RAG explained simply (LangChain Blog)</a></td>
-  <td class="instruction-cell">Read the explainer. Plan: what documents would YOUR agent need?</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://blog.langchain.dev/tutorial-chatgpt-over-your-data/" target="_blank">Click here → Read: How RAG works (LangChain blog)</a> Read the intro section.</li>
+  <li><span class="step-num">2</span> Create a text file called faq.txt with 10 Q&amp;A pairs about your app. Example: "Q: How do I cancel? A: Log in and go to Settings → Subscription → Cancel."</li>
+  <li><span class="step-num">3</span> Plan your RAG agent: what documents would it search? What questions would users ask?</li>
+</ol>
+</td>
 </tr><tr class="row-alt">
   <td>70</td>
   <td>Build a Simple RAG Agent</td>
   <td><a href="https://n8n.io/workflows" target="_blank" rel="noopener noreferrer">n8n RAG template</a></td>
-  <td class="instruction-cell">Build a FAQ agent using a text file of your own Q&amp;As.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://n8n.io/workflows/" target="_blank">Search n8n templates for "RAG"</a> Import a RAG template.</li>
+  <li><span class="step-num">2</span> Upload your faq.txt file to the workflow. Connect your OpenAI API key. Test with 5 different questions from your FAQ.</li>
+  <li><span class="step-num">3</span> Check accuracy: does the agent answer correctly? Where does it get confused? Improve your faq.txt to be more specific.</li>
+</ol>
+</td>
 </tr><tr>
   <td>71</td>
   <td>Connecting Agents to Your App</td>
   <td><a href="https://sdk.vercel.ai" target="_blank" rel="noopener noreferrer">Vercel AI SDK Docs</a></td>
-  <td class="instruction-cell">Read the Vercel AI SDK intro. Add a chat interface to your app.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://sdk.vercel.ai/docs/getting-started" target="_blank">Click here → Vercel AI SDK Getting Started Guide</a> Read the intro and install section.</li>
+  <li><span class="step-num">2</span> Add a chat interface to your Phase 4 app using the Vercel AI SDK: ask Cursor "Add a chat interface using the Vercel AI SDK that connects to my n8n agent webhook."</li>
+  <li><span class="step-num">3</span> Test the chat in your live app. Users can now talk to your agent directly from your app.</li>
+</ol>
+</td>
 </tr><tr class="row-alt">
   <td>72</td>
   <td>Memory + Context in Agents</td>
   <td><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer">n8n Memory Nodes docs</a></td>
-  <td class="instruction-cell">Add memory to your n8n agent. Test multi-turn conversations.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://docs.n8n.io/advanced-ai/examples/understand-memory/" target="_blank">Click here → n8n Memory Documentation</a> Read how to add memory to agents.</li>
+  <li><span class="step-num">2</span> Add a Memory node to your n8n agent: search for "Window Buffer Memory" in n8n nodes. Connect it to your AI Agent node.</li>
+  <li><span class="step-num">3</span> Test multi-turn conversation: ask "My name is [name]." Then ask "What is my name?" The agent should remember.</li>
+</ol>
+</td>
 </tr><tr>
   <td>73</td>
   <td>Multi-Step Agent Projects</td>
   <td><a href="https://crewai.com" target="_blank" rel="noopener noreferrer">CrewAI — crewai.com</a></td>
-  <td class="instruction-cell">Explore CrewAI. Plan a 2-agent system for a real task.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> <a href="https://www.crewai.com" target="_blank">Click here → Explore CrewAI.com</a> — a framework for multi-agent systems. Read the homepage and use cases.</li>
+  <li><span class="step-num">2</span> Plan a 2-agent system for a real task: Agent 1 = researcher (searches the web), Agent 2 = writer (turns research into a report). Draw it on paper.</li>
+  <li><span class="step-num">3</span> Ask <a href="https://claude.ai" target="_blank">Claude</a>: "How would I build a 2-agent research + writing system using CrewAI? Give me a simple example."</li>
+</ol>
+</td>
 </tr><tr class="row-alt">
   <td>74</td>
   <td>Polish + Real-World Testing</td>
   <td>Your own agent</td>
-  <td class="instruction-cell">Run your agent on 20 real test cases. Fix every failure.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Run your agent on 20 real test cases — things a real user of your app would actually ask or submit.</li>
+  <li><span class="step-num">2</span> For every failure: identify WHY it failed (wrong tool? bad prompt? missing data?). Fix each one.</li>
+  <li><span class="step-num">3</span> Goal: your agent handles at least 18 out of 20 test cases correctly before Day 75.</li>
+</ol>
+</td>
 </tr><tr>
   <td>75</td>
   <td>Agent Showcase + Phase Review</td>
   <td>Screen record your agent working</td>
-  <td class="instruction-cell">Record 2 min demo. Write 3-sentence summary. Share it.</td>
+  <td class="instruction-cell">
+<ol class="steps">
+  <li><span class="step-num">1</span> Record a 2-minute screen recording showing your agent working. Show: the input, the agent thinking, and the output. Use QuickTime (Mac) or Xbox Game Bar (Windows).</li>
+  <li><span class="step-num">2</span> Share the recording somewhere: LinkedIn, WeChat group, or email it to 3 friends. Write: "I built this agent in 75 days starting from zero."</li>
+  <li><span class="step-num">3</span> Take the Phase 5 Knowledge Check. Then read the "After This Course" section. You earned it.</li>
+</ol>
+</td>
 </tr>
   </tbody>
 </table>
